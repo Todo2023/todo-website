@@ -166,8 +166,7 @@ export const site = {
     tel: '070-9136-4879',
     // 受付時間の目安
     hours: '平日 9:00〜18:00',
-    // ★ここは必ず実際のアドレスに変えてください（現在は仮の値です）
-    email: 'info@example.com',
+    email: 'todo.inc.2023.10.13@gmail.com',
     // 問い合わせフォームを使う場合のみ。使わないなら null のままでOK。
     // Google フォームの「送信」→リンク で出てくるURLを '' の中に貼ります。
     formUrl: null,

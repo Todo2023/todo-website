@@ -12,6 +12,8 @@ const year = new Date().getFullYear();
       <p>
         TEL:&nbsp;<a href={`tel:${site.contact.tel.replace(/-/g, '')}`}>{site.contact.tel}</a>
         <br />
+        Email:&nbsp;<a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+        <br />
         受付時間:&nbsp;{site.contact.hours}
       </p>
     </div>
