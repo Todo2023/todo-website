@@ -3,6 +3,14 @@ import Base from '../layouts/Base.astro';
 import { site } from '../data/site.mjs';
 
 const { tel, email, hours, address, formUrl } = site.contact;
+
+// Googleフォームは ?embedded=true を付けるとページ内に馴染む見た目になる。
+// 短縮URL（forms.gle/...）は転送先が実際に開くまで分からず埋め込めないので、
+// その場合はボタンで別タブに開く形にする。
+const canEmbed = Boolean(formUrl?.includes('docs.google.com/forms'));
+const embedUrl = canEmbed
+  ? `${formUrl.split('?')[0].replace(/\/(edit|viewform)?$/, '/viewform')}?embedded=true`
+  : null;
 ---
 
 <Base
@@ -39,7 +47,23 @@ const { tel, email, hours, address, formUrl } = site.contact;
         </article>
       </div>
 
-      {formUrl && (
+      {embedUrl && (
+        <div class="form-embed">
+          <h2>フォームから問い合わせる</h2>
+          <iframe
+            src={embedUrl}
+            title="お問い合わせフォーム"
+            loading="lazy"
+            width="100%"
+            height="1100">読み込んでいます…</iframe>
+          <p>
+            うまく表示されない場合は
+            <a href={formUrl} target="_blank" rel="noopener">こちらから別ページで開けます</a>。
+          </p>
+        </div>
+      )}
+
+      {formUrl && !embedUrl && (
         <div class="btn-row" style="margin-top:32px">
           <a class="btn btn--primary" href={formUrl} target="_blank" rel="noopener">
             フォームから問い合わせる

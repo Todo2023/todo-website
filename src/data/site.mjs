@@ -168,8 +168,17 @@ export const site = {
     // 受付時間の目安
     hours: '平日 9:00〜18:00',
     email: 'todo.inc.2023.10.13@gmail.com',
-    // 問い合わせフォームを使う場合のみ。使わないなら null のままでOK。
-    // Google フォームの「送信」→リンク で出てくるURLを '' の中に貼ります。
+    // ★お問い合わせフォーム（Googleフォーム）
+    //
+    //   Googleフォームを作ったら、その画面右上の「送信」→ リンクのマーク（🔗）
+    //   を押すと出てくるURLを、下の '' の中に貼り付けてください。
+    //   （https://docs.google.com/forms/... で始まる長いほうのURLです。
+    //     「URLを短縮」にチェックを入れた forms.gle/... の短いURLでも動きます）
+    //
+    //   貼ると、お問い合わせページにフォームがそのまま表示されます。
+    //   フォームを使わない場合は null のままでOKです（電話とメールだけ出ます）。
+    //
+    //   例) formUrl: 'https://docs.google.com/forms/d/e/1FAIpQL.../viewform',
     formUrl: null,
     address: '〒004-0022　北海道札幌市厚別区厚別南1-4-3　Asterope厚別南101',
   },
