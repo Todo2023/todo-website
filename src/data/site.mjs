@@ -124,7 +124,7 @@ export const site = {
   // 6. 代表プロフィール
   // ---------------------------------------------------------------------
   representative: {
-    role: '代表社員',
+    role: '代表',
     name: '辰巳 貴恒',
     nameEn: 'Takatsune Tatsumi',
     lead:
@@ -246,7 +246,7 @@ export const site = {
   // ---------------------------------------------------------------------
   company: [
     { label: '商号', value: '合同会社To do' },
-    { label: '代表社員', value: '辰巳 貴恒' },
+    { label: '代表', value: '辰巳 貴恒' },
     { label: '創業', value: '2023年10月' },
     { label: '拠点', value: '北海道札幌市' },
     { label: '電話番号', value: '070-9136-4879' },
