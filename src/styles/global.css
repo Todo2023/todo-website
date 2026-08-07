@@ -85,6 +85,8 @@ p { margin: 0 0 1.2em; }
 
 /* カード ------------------------------------------------------------- */
 .grid { display: grid; gap: 22px; }
+/* 長いメールアドレスなどが列幅を押し広げないようにする */
+.grid > * { min-width: 0; }
 @media (min-width: 720px) {
   .grid--2 { grid-template-columns: repeat(2, 1fr); }
   .grid--3 { grid-template-columns: repeat(3, 1fr); }
@@ -97,6 +99,7 @@ p { margin: 0 0 1.2em; }
   padding: 28px 26px;
 }
 .card h3 { color: var(--brand-dark); }
+.card a { overflow-wrap: anywhere; }
 .card p:last-child { margin-bottom: 0; }
 
 /* 定義リスト（会社概要の表） --------------------------------------- */
@@ -111,7 +114,7 @@ p { margin: 0 0 1.2em; }
   .deflist > div { grid-template-columns: 15em 1fr; }
 }
 .deflist dt { font-weight: 700; color: var(--brand-dark); margin: 0; }
-.deflist dd { margin: 0; }
+.deflist dd { margin: 0; overflow-wrap: anywhere; }
 
 /* ヘッダー・フッター ------------------------------------------------- */
 .site-header {
@@ -167,7 +170,7 @@ p { margin: 0 0 1.2em; }
   padding: 56px 0 28px;
   margin-top: 40px;
 }
-.site-footer a { color: #fff; }
+.site-footer a { color: #fff; overflow-wrap: anywhere; }
 .site-footer h2 { color: #fff; font-size: 1.05rem; }
 .site-footer__cols { display: grid; gap: 32px; }
 @media (min-width: 720px) { .site-footer__cols { grid-template-columns: 1.4fr 1fr; } }
