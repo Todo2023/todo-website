@@ -1,5 +1,6 @@
 ---
 import { site } from '../data/site.mjs';
+import Logo from './Logo.astro';
 
 // 現在開いているページのメニュー項目に印をつけるための判定。
 const here = Astro.url.pathname;
@@ -8,8 +9,11 @@ const here = Astro.url.pathname;
 <header class="site-header">
   <div class="wrap site-header__inner">
     <a class="site-logo" href="/">
-      <span class="site-logo__mark">To do</span>
-      <span class="site-logo__sub">合同会社To do</span>
+      <Logo size={36} />
+      <span class="site-logo__text">
+        <span class="site-logo__mark">To do</span>
+        <span class="site-logo__sub">合同会社To do</span>
+      </span>
     </a>
     <nav class="site-nav" aria-label="メインメニュー">
       <ul>

@@ -1,0 +1,28 @@
+---
+/*
+ * ロゴマーク。同じチェックマークを横にずらして2本重ね、
+ * 交差部分が濃く沈む（mix-blend-mode: multiply）。
+ * 色を変えたいときは、下の２つの stroke の値を変えてください。
+ */
+const { size = 34, title = '合同会社To do' } = Astro.props;
+
+// チェックマークの形（左下→頂点→右上）
+const CHECK = 'M18 50 L44 78 L96 20';
+---
+
+<svg
+  class="logo-mark"
+  width={size}
+  height={size}
+  viewBox="0 0 100 100"
+  role="img"
+  aria-label={title}
+  fill="none"
+>
+  <g stroke-width="15" stroke-linecap="butt" stroke-linejoin="miter">
+    <!-- マゼンタのチェック（左にずらす） -->
+    <path d={CHECK} stroke="#a0128e" transform="translate(-15 0)" style="mix-blend-mode: multiply" />
+    <!-- 青いチェック -->
+    <path d={CHECK} stroke="#4a6a9d" style="mix-blend-mode: multiply" />
+  </g>
+</svg>

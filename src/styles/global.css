@@ -4,27 +4,28 @@
  */
 
 :root {
-  /* 深い緑（現サイトから引き継いだブランドカラー） */
-  --ground: #052e28;        /* いちばん濃い背景 */
-  --ground-2: #0a463d;      /* 濃い背景の変化用 */
-  --brand: #0c5145;         /* 見出し・ボタン */
-  --brand-deep: #073a32;
+  /* ロゴの3色から起こしたパレット。
+     青(#4a6a9d) × マゼンタ(#a0128e)、重なりの濃紺(#241d52)。 */
+  --ground: #1d1745;        /* いちばん濃い背景（ロゴの交差部分） */
+  --ground-2: #2a2160;
+  --brand: #3f5c8a;         /* 見出し・ボタンの青 */
+  --brand-deep: #2d4368;
 
   /* 明るい面 */
-  --surface: #fbfaf7;       /* 基本の背景（わずかに暖かい白） */
-  --surface-2: #f2f1ea;     /* 一段沈めた背景 */
+  --surface: #fbfafc;       /* 基本の背景（わずかに青みのある白） */
+  --surface-2: #f1f0f6;     /* 一段沈めた背景 */
 
-  /* 差し色：真鍮。深緑に対して品よく効く */
-  --accent: #c3903f;
-  --accent-soft: #e3c288;
+  /* 差し色：ロゴのマゼンタ */
+  --accent: #a0128e;        /* 明るい面の上で使う */
+  --accent-soft: #e07ad0;   /* 濃い背景の上で使う */
 
-  --ink: #14201d;           /* 本文 */
-  --ink-muted: #5b6c67;     /* 補足 */
-  --on-dark: #eef3f0;       /* 濃い背景の上の文字 */
-  --on-dark-muted: #9fb5ae;
+  --ink: #1a1830;           /* 本文 */
+  --ink-muted: #575572;     /* 補足 */
+  --on-dark: #eeecf7;       /* 濃い背景の上の文字 */
+  --on-dark-muted: #b0aad0;
 
-  --line: #e2e4dd;
-  --line-dark: rgba(238, 243, 240, 0.16);
+  --line: #e3e1ec;
+  --line-dark: rgba(238, 236, 247, 0.18);
 
   --maxw: 1120px;
   --gut: clamp(20px, 5vw, 40px);
@@ -119,11 +120,11 @@ p:last-child { margin-bottom: 0; }
 }
 .btn::after { content: '→'; font-weight: 400; }
 .btn--primary { background: var(--brand); color: #fff; border-color: var(--brand); }
-.btn--primary:hover { background: var(--accent); border-color: var(--accent); color: var(--ground); }
+.btn--primary:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
 .btn--ghost { background: transparent; color: var(--ink); border-color: var(--line); }
 .btn--ghost:hover { border-color: var(--accent); color: var(--accent); background: transparent; }
 .btn--on-dark { background: transparent; color: var(--on-dark); border-color: var(--line-dark); }
-.btn--on-dark:hover { background: var(--accent); border-color: var(--accent); color: var(--ground); }
+.btn--on-dark:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
 .btn-row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 2.4em; }
 
 /* ヘッダー ----------------------------------------------------------- */
@@ -131,7 +132,7 @@ p:last-child { margin-bottom: 0; }
   position: sticky;
   top: 0;
   z-index: 30;
-  background: rgba(251, 250, 247, 0.9);
+  background: rgba(251, 250, 252, 0.9);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
@@ -144,11 +145,14 @@ p:last-child { margin-bottom: 0; }
 }
 .site-logo {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 12px;
   text-decoration: none;
   color: var(--ink);
   line-height: 1.15;
 }
+.site-logo__text { display: flex; flex-direction: column; }
+.logo-mark { flex: 0 0 auto; }
 .site-logo__mark {
   font-size: 1.5rem;
   font-weight: 300;
@@ -204,7 +208,7 @@ p:last-child { margin-bottom: 0; }
   width: min(760px, 85vw);
   aspect-ratio: 1;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(195, 144, 63, 0.22), transparent 62%);
+  background: radial-gradient(circle, rgba(160, 18, 142, 0.30), transparent 62%);
   pointer-events: none;
 }
 .hero > .wrap { position: relative; }
