@@ -34,6 +34,8 @@ const jsonLd = {
     addressLocality: '札幌市',
   },
   areaServed: 'JP',
+  // SNSのプロフィールを「同じ会社のもの」としてGoogleに伝える。
+  sameAs: Object.values(site.social).filter(Boolean),
 };
 ---
 

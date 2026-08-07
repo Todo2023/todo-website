@@ -1,0 +1,42 @@
+---
+/*
+ * フッターのSNSアイコン。
+ * 表示するかどうかは src/data/site.mjs の social で決まります。
+ * URLが null のSNSは、ここで自動的に除外されます。
+ */
+import { site } from '../data/site.mjs';
+
+const ICONS = {
+  facebook: {
+    label: 'Facebook',
+    path: 'M17 3h-3a5 5 0 0 0-5 5v3H6v4h3v6h4v-6h3l1-4h-4V8a1 1 0 0 1 1-1h3z',
+  },
+  x: {
+    label: 'X（旧Twitter）',
+    path: 'M4 3h4.2l4.2 5.7L17.4 3H21l-6.6 7.6L21.4 21h-4.2l-4.6-6.2L7.2 21H4l7-8z',
+  },
+  instagram: {
+    label: 'Instagram',
+    path: 'M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4m10 2H7a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2m-5 3a4 4 0 1 1 0 8a4 4 0 0 1 0-8m0 2a2 2 0 1 0 0 4a2 2 0 0 0 0-4m5.4-3.1a1.1 1.1 0 1 1 0 2.2a1.1 1.1 0 0 1 0-2.2',
+  },
+};
+
+// URLが入っているものだけ残す。
+const links = Object.entries(site.social)
+  .filter(([key, url]) => url && ICONS[key])
+  .map(([key, url]) => ({ url, ...ICONS[key] }));
+---
+
+{links.length > 0 && (
+  <ul class="social">
+    {links.map((l) => (
+      <li>
+        <a href={l.url} target="_blank" rel="noopener" aria-label={l.label} title={l.label}>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+            <path d={l.path} />
+          </svg>
+        </a>
+      </li>
+    ))}
+  </ul>
+)}
