@@ -150,7 +150,7 @@ export const site = {
   company: [
     { label: '商号', value: '合同会社To do' },
     { label: '創業', value: '2023年10月' },
-    { label: '所在地', value: '〒004-0022　北海道札幌市厚別区厚別南1-4-3　Asterope厚別南101' },
+    { label: '拠点', value: '北海道札幌市' },
     { label: '電話番号', value: '070-9136-4879' },
     { label: 'メールアドレス', value: 'todo.inc.2023.10.13@gmail.com' },
     { label: '事業内容', value: '営業・販促資料の作成／ロゴ・名刺等のデザイン／秘書・バックオフィス代行／AI活用・業務自動化の支援' },
@@ -165,8 +165,8 @@ export const site = {
   // ---------------------------------------------------------------------
   contact: {
     tel: '070-9136-4879',
-    // 受付時間の目安
-    hours: '平日 9:00〜18:00',
+    // 定休日。決まった休みがないので「不定休」。
+    holidays: '不定休',
     email: 'todo.inc.2023.10.13@gmail.com',
     // ★お問い合わせフォーム（Googleフォーム）
     //
@@ -180,7 +180,6 @@ export const site = {
     //
     //   例) formUrl: 'https://docs.google.com/forms/d/e/1FAIpQL.../viewform',
     formUrl: null,
-    address: '〒004-0022　北海道札幌市厚別区厚別南1-4-3　Asterope厚別南101',
   },
 
   // ---------------------------------------------------------------------

@@ -8,13 +8,13 @@ const year = new Date().getFullYear();
   <div class="wrap site-footer__cols">
     <div>
       <h2>{site.name}</h2>
-      <p>{site.contact.address}</p>
+      <p>北海道札幌市</p>
       <p>
         TEL:&nbsp;<a href={`tel:${site.contact.tel.replace(/-/g, '')}`}>{site.contact.tel}</a>
         <br />
         Email:&nbsp;<a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
         <br />
-        受付時間:&nbsp;{site.contact.hours}
+        定休日:&nbsp;{site.contact.holidays}
       </p>
     </div>
     <div>

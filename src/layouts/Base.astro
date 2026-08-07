@@ -25,14 +25,15 @@ const jsonLd = {
   url: site.url,
   description: site.description,
   telephone: site.contact.tel,
+  email: site.contact.email,
+  // 番地は公開しない方針のため、市区町村までにとどめる。
   address: {
     '@type': 'PostalAddress',
     addressCountry: 'JP',
     addressRegion: '北海道',
-    addressLocality: '札幌市厚別区',
-    postalCode: '004-0022',
-    streetAddress: '厚別南1-4-3 Asterope厚別南101',
+    addressLocality: '札幌市',
   },
+  areaServed: 'JP',
 };
 ---
 

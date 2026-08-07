@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import { site } from '../data/site.mjs';
 
-const { tel, email, hours, address, formUrl } = site.contact;
+const { tel, email, holidays, formUrl } = site.contact;
 
 // Googleフォームは ?embedded=true を付けるとページ内に馴染む見た目になる。
 // 短縮URL（forms.gle/...）は転送先が実際に開くまで分からず埋め込めないので、
@@ -15,7 +15,7 @@ const embedUrl = canEmbed
 
 <Base
   title="お問い合わせ"
-  description="合同会社To doへのお問い合わせ先。お電話またはメールでご連絡ください。ご相談・お見積りは無料です。"
+  description="合同会社To doへのお問い合わせ先。お電話またはメールでご連絡ください。ご相談・お見積りは無料です。オンラインでの打ち合わせに対応しています。"
 >
   <section class="page-head">
     <div class="wrap">
@@ -36,7 +36,8 @@ const embedUrl = canEmbed
           <p style="font-size:1.5rem;font-weight:700">
             <a href={`tel:${tel.replace(/-/g, '')}`}>{tel}</a>
           </p>
-          <p>受付時間：{hours}</p>
+          <p>定休日：{holidays}</p>
+          <p>つながらない場合はメールをご利用ください。折り返しご連絡します。</p>
         </article>
         <article class="card">
           <h3>メール</h3>
@@ -72,11 +73,13 @@ const embedUrl = canEmbed
       )}
 
       <div class="prose" style="margin-top:48px">
-        <h2>所在地</h2>
-        <p>{address}</p>
+        <h2>お打ち合わせについて</h2>
         <p>
-          ※お打ち合わせはオンライン（Google Meet 等）でも対応しています。
-          ご来社の際は、事前にご連絡をお願いいたします。
+          北海道札幌市を拠点に活動しています。
+          お打ち合わせはオンライン（Google Meet 等）で承っており、全国どこからでもご依頼いただけます。
+        </p>
+        <p>
+          札幌近郊であれば、ご訪問しての打ち合わせも可能です。ご希望の場所をお知らせください。
         </p>
       </div>
     </div>
