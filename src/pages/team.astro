@@ -1,0 +1,112 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site.mjs';
+
+const rep = site.representative;
+const members = site.members;
+---
+
+<Base
+  title="チーム"
+  description={`合同会社To doのチーム。${rep.role} ${rep.name}はキーエンス、パナソニック、工機ホールディングス、カールツァイスで営業・マーケティング・新規事業を担当。幅広い実務経験と資格を持つメンバーが、関連業務の請負にも対応します。`}
+>
+  <section class="page-head">
+    <div class="wrap">
+      <span class="eyebrow eyebrow--on-dark">Team</span>
+      <h1>チーム</h1>
+      <p>
+        事業会社で意思決定を担ってきた代表と、業界を横断して実務を担ってきたメンバーで構成しています。
+        構想から手を動かすところまで、同じチームの中で完結します。
+      </p>
+    </div>
+  </section>
+
+  <!-- 代表 -->
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">Representative</span>
+      <div class="profile-name">
+        <strong>{rep.name}</strong>
+        <span>{rep.role}</span>
+      </div>
+      <p class="lede">{rep.lead}</p>
+
+      <p class="subhead">経歴</p>
+      <ul class="record">
+        {rep.career.map((job) => (
+          <li>
+            <p class="record__org">{job.company}</p>
+            <ul class="record__roles">
+              {job.roles.map((r) => <li>{r}</li>)}
+            </ul>
+          </li>
+        ))}
+      </ul>
+
+      <p class="subhead">アドバイザリー実績</p>
+      <ul class="record">
+        {rep.advisory.map((a) => (
+          <li>
+            <p class="record__org">{a.theme}</p>
+            <ul class="record__roles">
+              {a.clients.map((c) => <li>{c}</li>)}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- メンバー -->
+  <section class="section section--tint">
+    <div class="wrap">
+      <span class="eyebrow">Members</span>
+      <h2>メンバー</h2>
+      <p class="lede">{members.lead}</p>
+
+      {members.people.map((m) => (
+        <div class="person" style="margin-top:3.5em">
+          {m.name && (
+            <div class="profile-name">
+              <strong>{m.name}</strong>
+              <span>{m.role}</span>
+            </div>
+          )}
+          <p class="lede">{m.summary}</p>
+
+          <p class="subhead">お引き受けしてきた業務</p>
+          <ul class="record">
+            {m.experience.map((e) => (
+              <li>
+                <p class="record__org">{e.field}</p>
+                <ul class="record__roles">
+                  {e.items.map((i) => <li>{i}</li>)}
+                </ul>
+              </li>
+            ))}
+          </ul>
+
+          <p class="subhead">保有資格</p>
+          <ul class="tags">
+            {m.qualifications.map((q) => <li>{q}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="wrap">
+      <span class="eyebrow eyebrow--on-dark">Contact</span>
+      <h2>関連業務も、まとめてお引き受けします。</h2>
+      <p class="lede">
+        資料作成、記事執筆、リサーチ、営業支援、経理まわりの事務、AIの活用まで、
+        課題の周辺で発生する実務を同じチームで対応できます。
+        ご相談内容が複数にまたがっていても構いません。
+      </p>
+      <div class="btn-row">
+        <a class="btn btn--on-dark" href="/contact/">お問い合わせ</a>
+      </div>
+    </div>
+  </section>
+</Base>

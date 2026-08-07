@@ -3,63 +3,70 @@ import Base from '../layouts/Base.astro';
 import { site } from '../data/site.mjs';
 import { getCollection } from 'astro:content';
 
-// キャッチコピーは「｜」の位置で改行する。
 const headlineLines = site.hero.headline.split('｜');
 
-// お知らせを新しい順に3件だけ取り出す（下書きは除く）。
 const news = (await getCollection('news', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 
 const fmt = (d) =>
   `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+
+const rep = site.representative;
 ---
 
 <Base>
   <section class="hero">
     <div class="wrap">
+      <div class="hero__rule"></div>
       <h1>{headlineLines.map((line, i) => (i === 0 ? line : [<br />, line]))}</h1>
       <p class="hero__lead">{site.hero.lead}</p>
       <div class="btn-row">
-        <a class="btn btn--primary" href={site.hero.primaryCta.href}>{site.hero.primaryCta.label}</a>
-        <a class="btn btn--ghost" href={site.hero.secondaryCta.href}>{site.hero.secondaryCta.label}</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--soft">
-    <div class="wrap">
-      <span class="eyebrow">Services</span>
-      <h2>できること</h2>
-      <div class="grid grid--2">
-        {site.services.map((s) => (
-          <article class="card">
-            <h3>{s.title}</h3>
-            <p>{s.summary}</p>
-            <p><a href={`/services/#${s.id}`}>くわしく見る →</a></p>
-          </article>
-        ))}
+        <a class="btn btn--on-dark" href={site.hero.primaryCta.href}>{site.hero.primaryCta.label}</a>
+        <a class="btn btn--on-dark" href={site.hero.secondaryCta.href}>{site.hero.secondaryCta.label}</a>
       </div>
     </div>
   </section>
 
   <section class="section">
     <div class="wrap">
-      <span class="eyebrow">Why us</span>
-      <h2>依頼しやすい理由</h2>
-      <div class="grid grid--3">
-        {site.strengths.map((s) => (
-          <article class="card">
-            <h3>{s.title}</h3>
-            <p>{s.body}</p>
-          </article>
+      <span class="eyebrow">What we do</span>
+      <h2>問題を抽出し、課題を設定する。</h2>
+      <p class="lede">{site.servicesIntro}</p>
+
+      <ol class="steps">
+        {site.services.map((s, i) => (
+          <li class="step">
+            <div class="step__num">{String(i + 1).padStart(2, '0')}</div>
+            <h3 class="step__title">{s.title}</h3>
+            <p class="step__body">{s.body}</p>
+          </li>
         ))}
+      </ol>
+
+      <div class="btn-row">
+        <a class="btn btn--ghost" href="/services/">サービスの詳細</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="wrap">
+      <span class="eyebrow eyebrow--on-dark">Team</span>
+      <div class="profile-name">
+        <strong>{rep.name}</strong>
+        <span>{rep.role}</span>
+      </div>
+      <p class="lede">{rep.lead}</p>
+      <p class="lede" style="margin-top:1.4em">{site.members.lead}</p>
+      <div class="btn-row">
+        <a class="btn btn--on-dark" href="/team/">チームを見る</a>
       </div>
     </div>
   </section>
 
   {news.length > 0 && (
-    <section class="section section--soft">
+    <section class="section section--tint">
       <div class="wrap">
         <span class="eyebrow">News</span>
         <h2>お知らせ</h2>
@@ -73,17 +80,20 @@ const fmt = (d) =>
             </li>
           ))}
         </ul>
-        <p style="margin-top:24px"><a href="/news/">お知らせ一覧 →</a></p>
+        <div class="btn-row">
+          <a class="btn btn--ghost" href="/news/">お知らせ一覧</a>
+        </div>
       </div>
     </section>
   )}
 
   <section class="section">
     <div class="wrap">
-      <h2>まず一度、話を聞かせてください</h2>
-      <p class="prose">
-        「これは頼めるのだろうか」という段階のご相談で構いません。
-        内容をうかがったうえで、対応できる範囲とおおよその費用感をお伝えします。
+      <span class="eyebrow">Contact</span>
+      <h2>まず、状況をお聞かせください。</h2>
+      <p class="lede">
+        「何が問題なのかが、まだ言葉になっていない」という段階で構いません。
+        お話をうかがったうえで、お手伝いできることをお伝えします。ご相談は無料です。
       </p>
       <div class="btn-row">
         <a class="btn btn--primary" href="/contact/">お問い合わせ</a>

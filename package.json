@@ -12,8 +12,5 @@
     "astro": "^5.18.2"
   },
   "private": true,
-  "type": "module",
-  "devDependencies": {
-    "playwright": "^1.62.1"
-  }
+  "type": "module"
 }

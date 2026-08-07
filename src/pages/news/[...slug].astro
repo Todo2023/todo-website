@@ -18,7 +18,7 @@ const fmt = `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`;
 <Base title={post.data.title} description={post.data.summary ?? post.data.title}>
   <section class="page-head">
     <div class="wrap">
-      <span class="eyebrow">News</span>
+      <span class="eyebrow eyebrow--on-dark">News</span>
       <h1>{post.data.title}</h1>
       <p><time datetime={d.toISOString().slice(0, 10)}>{fmt}</time></p>
     </div>
