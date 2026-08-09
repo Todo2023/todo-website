@@ -33,6 +33,13 @@ export const site = {
   name: '合同会社To do',
   nameEn: 'To do',
 
+  // 社名の表記ゆれ。同名・類似名の会社と区別してもらうため、
+  // 検索エンジンに「これも同じ会社の呼び方です」と伝えます。
+  nameVariants: ['To do', 'Todo', 'トゥードゥー', 'To do LLC', '合同会社Todo'],
+
+  // 法人番号。同名の会社と取り違えられないための、いちばん確実な識別子です。
+  corporateNumber: '4011603004093',
+
   // Googleの検索結果でタイトルの下に出る説明文（全角60〜80文字が目安）
   description:
     '合同会社To doは、問題解決の専門家によるアドバイザリーです。' +
@@ -248,7 +255,8 @@ export const site = {
     { label: '商号', value: '合同会社To do' },
     { label: '代表', value: '辰巳 貴恒' },
     { label: '創業', value: '2023年10月' },
-    { label: '拠点', value: '北海道札幌市' },
+    { label: '法人番号', value: '4011603004093' },
+    { label: '対応エリア', value: '全国（オンラインでの打ち合わせに対応）' },
     { label: '電話番号', value: '070-9136-4879' },
     { label: 'メールアドレス', value: 'todo.inc.2023.10.13@gmail.com' },
     { label: '事業内容', value: 'アドバイザリー業務／実務代行（資料作成・デザイン・バックオフィス・AI活用支援）' },

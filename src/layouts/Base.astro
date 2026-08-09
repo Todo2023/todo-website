@@ -12,7 +12,7 @@ import '../styles/global.css';
 const { title, description, path = Astro.url.pathname } = Astro.props;
 
 // ページのタイトル。トップページだけは「会社名｜説明」の形にする。
-const pageTitle = title ? `${title}｜${site.name}` : `${site.name}｜札幌の資料作成・デザイン・秘書代行・AI活用支援`;
+const pageTitle = title ? `${title}｜${site.name}` : `${site.name}｜問題解決の専門家によるアドバイザリー`;
 const pageDescription = description ?? site.description;
 const canonical = new URL(path, site.url).href;
 
@@ -21,21 +21,33 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: site.name,
-  alternateName: site.nameEn,
+  legalName: site.name,
+  alternateName: site.nameVariants,
+  // 法人番号（同名の会社との取り違えを防ぐ）
+  identifier: {
+    '@type': 'PropertyValue',
+    name: '法人番号',
+    value: site.corporateNumber,
+  },
   url: site.url,
   description: site.description,
   telephone: site.contact.tel,
   email: site.contact.email,
-  // 番地は公開しない方針のため、市区町村までにとどめる。
-  address: {
-    '@type': 'PostalAddress',
-    addressCountry: 'JP',
-    addressRegion: '北海道',
-    addressLocality: '札幌市',
-  },
-  areaServed: 'JP',
+  // 所在地は公開しない方針。対応範囲だけを日本全国として伝える。
+  areaServed: { '@type': 'Country', name: '日本' },
   // SNSのプロフィールを「同じ会社のもの」としてGoogleに伝える。
   sameAs: Object.values(site.social).filter(Boolean),
+};
+
+// サイトそのものの情報。社名での検索時に正式名称を結び付けやすくする。
+const webSiteLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: site.name,
+  alternateName: site.nameVariants,
+  url: site.url,
+  inLanguage: 'ja',
+  publisher: { '@type': 'Organization', name: site.name },
 };
 ---
 
@@ -56,9 +68,15 @@ const jsonLd = {
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content="ja_JP" />
+    <meta property="og:image" content={new URL('/ogp.png', site.url).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${site.name}｜問題解決の専門家によるアドバイザリー`} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={new URL('/ogp.png', site.url).href} />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+    <script type="application/ld+json" set:html={JSON.stringify(webSiteLd)} is:inline />
 
     {/* 管理画面のログイン用。招待メールのリンクを踏むと /admin/ に飛ばします。 */}
     {site.cms && (
