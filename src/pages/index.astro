@@ -28,13 +28,23 @@ const rep = site.representative;
     </div>
   </section>
 
+  <section class="creds">
+    <div class="wrap">
+      <p class="creds__label">{site.credentials.label}</p>
+      <ul class="creds__list">
+        {site.credentials.companies.map((c) => <li>{c}</li>)}
+      </ul>
+      <p class="creds__note">{site.credentials.note}</p>
+    </div>
+  </section>
+
   <section class="section">
     <div class="wrap">
       <span class="eyebrow">What we do</span>
       <h2>問題を抽出し、課題を設定する。</h2>
       <p class="lede">
-        合同会社To doは、経営の意思決定に伴走するアドバイザリーです。
-        {site.servicesIntro}
+        合同会社To doは、事業会社で意思決定を担ってきた代表が、
+        経営の判断に伴走するアドバイザリーです。{site.servicesIntro}
       </p>
 
       <ol class="steps">

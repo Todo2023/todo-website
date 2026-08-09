@@ -449,3 +449,40 @@ p:last-child { margin-bottom: 0; }
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 .social a:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* 経歴の帯（トップページ） -------------------------------------------- */
+.creds {
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--line);
+  padding: clamp(34px, 5vw, 52px) 0;
+}
+.creds__label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  margin-bottom: 1.4em;
+}
+.creds__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 0;
+  list-style: none;
+  margin: 0 0 1.4em;
+  padding: 0;
+}
+.creds__list li {
+  font-size: clamp(0.95rem, 1.6vw, 1.12rem);
+  font-weight: 700;
+  color: var(--brand-deep);
+  padding-right: 26px;
+  margin-right: 26px;
+  border-right: 1px solid var(--line);
+  line-height: 1.5;
+}
+.creds__list li:last-child { border-right: 0; padding-right: 0; margin-right: 0; }
+.creds__note { font-size: 0.92rem; color: var(--ink-muted); margin: 0; max-width: 44em; }
+@media (max-width: 700px) {
+  .creds__list { flex-direction: column; gap: 8px; }
+  .creds__list li { border-right: 0; padding-right: 0; margin-right: 0; }
+}
