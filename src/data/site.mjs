@@ -25,6 +25,11 @@ export const site = {
   // ここが正しくないと、検索エンジン向けの sitemap.xml が正しく作られません。
   url: 'https://todo-llc.netlify.app',
 
+  // Google Search Console の所有権確認タグ。
+  // 「HTMLタグ」の確認方法で表示される content="..." の中身だけを入れます。
+  // 確認が済んだあとも消さないでください（消すと所有権が外れます）。
+  googleSiteVerification: 'ZDDQSH8gMWGZhiox_9ZSql-TrOiBb-mnVKrau8r_OMU',
+
   // 管理画面（/admin）を使うかどうか。
   // Netlify の Identity を有効にするまでは true のままでOKです。
   cms: true,
