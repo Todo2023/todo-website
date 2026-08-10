@@ -36,9 +36,11 @@ const partners = site.partners;
         {rep.career.map((job) => (
           <li>
             <p class="record__org">{job.company}</p>
-            <ul class="record__roles">
-              {job.roles.map((r) => <li>{r}</li>)}
-            </ul>
+            {job.roles.length > 0 && (
+              <ul class="record__roles">
+                {job.roles.map((r) => <li>{r}</li>)}
+              </ul>
+            )}
           </li>
         ))}
       </ul>

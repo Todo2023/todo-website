@@ -76,8 +76,11 @@ export const site = {
     companies: [
       '株式会社キーエンス',
       'パナソニック株式会社',
+      'オムロン株式会社',
       '工機ホールディングス（旧日立工機）',
       'カールツァイス株式会社',
+      'Amazon Business',
+      '株式会社Sustech',
     ],
     note:
       'いずれも事業側の責任者・マネジャーとして、営業、マーケティング、' +
@@ -166,6 +169,9 @@ export const site = {
       '現在はその経験をもとに、経営の意思決定に伴走しています。',
 
     // 職歴。会社ごとに { } のかたまり。roles に役職を並べます。
+    // roles を空 [] にすると、会社名だけが表示されます。
+    // ★Sustech / Amazon Business / オムロンの役職は未確認です。
+    //   分かり次第 roles: ['役職名'] の形で追記してください。
     career: [
       {
         company: '株式会社キーエンス',
@@ -176,12 +182,24 @@ export const site = {
         roles: ['新事業プロジェクトマネジャー'],
       },
       {
+        company: 'オムロン株式会社',
+        roles: [],
+      },
+      {
         company: '工機ホールディングス株式会社（旧日立工機）',
         roles: ['プロダクトマネジメント室シニアダイレクター'],
       },
       {
         company: 'カールツァイス株式会社',
         roles: ['事業統括責任者（Head of Strategic Business Unit）'],
+      },
+      {
+        company: 'Amazon Business',
+        roles: [],
+      },
+      {
+        company: '株式会社Sustech',
+        roles: [],
       },
     ],
 
