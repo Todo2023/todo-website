@@ -486,3 +486,26 @@ p:last-child { margin-bottom: 0; }
   .creds__list { flex-direction: column; gap: 8px; }
   .creds__list li { border-right: 0; padding-right: 0; margin-right: 0; }
 }
+
+/* メール問い合わせのブロック ------------------------------------------ */
+.mailbox {
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  padding: clamp(28px, 4.5vw, 48px);
+}
+.mailbox__label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  margin-bottom: 1.2em;
+}
+.mailbox__addr {
+  font-size: clamp(1.05rem, 2.6vw, 1.6rem);
+  font-weight: 700;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.mailbox__addr a { text-decoration: none; border-bottom: 2px solid var(--line); }
+.mailbox__addr a:hover { border-bottom-color: var(--accent); }
+.mailbox__note { margin-top: 1.6em; font-size: 0.9rem; color: var(--ink-muted); }

@@ -11,9 +11,9 @@ const year = new Date().getFullYear();
       <h2>{site.name}</h2>
       <p>オンラインで全国対応</p>
       <p>
-        TEL:&nbsp;<a href={`tel:${site.contact.tel.replace(/-/g, '')}`}>{site.contact.tel}</a>
+        お問い合わせはメールで承っています。
         <br />
-        Email:&nbsp;<a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+        <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
         <br />
         定休日:&nbsp;{site.contact.holidays}
       </p>
