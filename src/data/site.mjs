@@ -79,7 +79,7 @@ export const site = {
       '工機ホールディングス（旧日立工機）',
       'カールツァイス株式会社',
       '株式会社Sustech',
-      'Amazon Business',
+      'アマゾンジャパン合同会社（Amazon Business）',
       'オムロン株式会社',
     ],
     note:
@@ -197,7 +197,7 @@ export const site = {
         roles: [],
       },
       {
-        company: 'Amazon Business',
+        company: 'アマゾンジャパン合同会社（Amazon Business）',
         roles: [],
       },
       {
