@@ -21,8 +21,8 @@ const ops = site.operations;
   <section class="section">
     <div class="wrap">
       <span class="eyebrow">Services</span>
-      <h2>3つのサービス</h2>
-      <div class="grid grid--3" style="margin-top:3em">
+      <h2>提供しているサービス</h2>
+      <div class="grid grid--2" style="margin-top:3em">
         {site.serviceList.map((sv) => (
           <article class="card">
             <h3>{sv.title}</h3>
@@ -90,6 +90,32 @@ const ops = site.operations;
       <p class="lede">{site.seo.lead}</p>
       <div class="btn-row">
         <a class="btn btn--primary" href="/services/seo/">サービスの詳細を見る</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint" id="expertise">
+    <div class="wrap">
+      <span class="eyebrow">Expertise</span>
+      <h2>{site.expertise.title}</h2>
+      <p class="lede">{site.expertise.lead}</p>
+
+      <ul class="areas">
+        {site.expertise.areas.map((a) => (
+          <li>
+            <div>
+              <h3>{a.title}</h3>
+              <p class="areas__from">{a.from}</p>
+            </div>
+            <p class="areas__body">{a.body}</p>
+          </li>
+        ))}
+      </ul>
+
+      <div class="prose" style="margin-top:4em">
+        <h3>{site.expertise.advisoryTitle}</h3>
+        <p>{site.expertise.advisoryBody}</p>
+        <p>{site.expertise.advisoryNote}</p>
       </div>
     </div>
   </section>

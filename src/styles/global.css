@@ -585,3 +585,35 @@ p:last-child { margin-bottom: 0; }
   color: var(--accent);
   margin-bottom: 0.9em;
 }
+
+/* 専門領域の一覧 -------------------------------------------------------- */
+.areas {
+  list-style: none;
+  margin: 3em 0 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+.section--dark .areas { border-top-color: var(--line-dark); }
+.areas > li {
+  display: grid;
+  gap: 10px 48px;
+  padding: clamp(26px, 4vw, 38px) 0;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+}
+.section--dark .areas > li { border-bottom-color: var(--line-dark); }
+@media (min-width: 860px) {
+  .areas > li { grid-template-columns: 22em 1fr; }
+}
+.areas h3 { margin: 0 0 0.4em; color: var(--brand-deep); }
+.section--dark .areas h3 { color: var(--on-dark); }
+.areas__from {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--accent);
+  font-weight: 600;
+}
+.section--dark .areas__from { color: var(--accent-soft); }
+.areas__body { margin: 0; color: var(--ink-muted); }
+.section--dark .areas__body { color: var(--on-dark-muted); }
