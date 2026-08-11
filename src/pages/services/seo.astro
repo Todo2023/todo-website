@@ -1,0 +1,95 @@
+---
+import Base from '../../layouts/Base.astro';
+import { site } from '../../data/site.mjs';
+import Consultation from '../../components/Consultation.astro';
+
+const s = site.seo;
+---
+
+<Base
+  title={s.title}
+  description="合同会社To doのSEOオウンドメディア運用支援。キーエンス出身代表の事業視点と、マーケティング専門スタッフの執筆体制で、読まれて問い合わせにつながる記事を制作します。キーワード設計から執筆、入稿、改善まで。"
+>
+  <section class="page-head">
+    <div class="wrap">
+      <span class="eyebrow eyebrow--on-dark">SEO / Owned media</span>
+      <h1>{s.title}</h1>
+      <p>{s.lead}</p>
+    </div>
+  </section>
+
+  <!-- なぜ2人体制なのか -->
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">Why</span>
+      <h2>{s.strengthTitle}</h2>
+      <p class="lede">{s.strengthBody}</p>
+
+      <div class="grid grid--2" style="margin-top:3em">
+        {s.roles.map((r) => (
+          <article class="card">
+            <p class="card__label">{r.title}</p>
+            <h3>{r.who}</h3>
+            <p>{r.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- お引き受けする範囲 -->
+  <section class="section section--tint">
+    <div class="wrap">
+      <span class="eyebrow">Scope</span>
+      <h2>お引き受けする範囲</h2>
+      <p class="lede">
+        一部だけのご依頼も可能です。「構成案までは自社で作るので執筆だけ」といった形にも対応します。
+      </p>
+
+      <div class="grid grid--3" style="margin-top:3em">
+        {s.scope.map((item) => (
+          <article class="card">
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 進め方 -->
+  <section class="section section--dark">
+    <div class="wrap">
+      <span class="eyebrow eyebrow--on-dark">Process</span>
+      <h2>進め方</h2>
+
+      <ol class="steps">
+        {s.flow.map((step, i) => (
+          <li class="step">
+            <div class="step__num">{String(i + 1).padStart(2, '0')}</div>
+            <h3 class="step__title">{step.title}</h3>
+            <p class="step__body">{step.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- こんな方に・費用 -->
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">For</span>
+      <h2>こんな状況の方へ</h2>
+      <ul class="plainlist" style="margin-top:1.6em">
+        {s.fitFor.map((f) => <li>{f}</li>)}
+      </ul>
+
+      <div class="prose" style="margin-top:3.4em">
+        <h2>費用について</h2>
+        <p>{s.priceNote}</p>
+      </div>
+    </div>
+  </section>
+
+  <Consultation variant="dark" />
+</Base>
