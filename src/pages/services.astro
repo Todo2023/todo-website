@@ -8,7 +8,7 @@ const ops = site.operations;
 
 <Base
   title="サービス"
-  description="合同会社To doのアドバイザリーサービス。パーパスの発見、成長機会の探索、課題の実践の3段階で、顧客のビジネスに伴走します。実務の代行も行います。"
+  description="合同会社To doのサービス。事業アドバイザリー、COO代行、SEOオウンドメディア運用支援の3つ。実務の代行まで引き受けます。30分の無料相談を受け付けています。"
 >
   <section class="page-head">
     <div class="wrap">
@@ -19,6 +19,22 @@ const ops = site.operations;
   </section>
 
   <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">Services</span>
+      <h2>3つのサービス</h2>
+      <div class="grid grid--3" style="margin-top:3em">
+        {site.serviceList.map((sv) => (
+          <article class="card">
+            <h3>{sv.title}</h3>
+            <p>{sv.body}</p>
+            <p style="margin-top:1.2em"><a href={sv.href}>{sv.linkLabel} →</a></p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint" id="advisory">
     <div class="wrap">
       <span class="eyebrow">Advisory</span>
       <h2>アドバイザリー</h2>
@@ -39,7 +55,7 @@ const ops = site.operations;
     </div>
   </section>
 
-  <section class="section section--tint">
+  <section class="section">
     <div class="wrap">
       <span class="eyebrow">Operations</span>
       <h2>{ops.title}</h2>
@@ -52,6 +68,17 @@ const ops = site.operations;
             <p>{item.body}</p>
           </article>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="wrap">
+      <span class="eyebrow">COO as a service</span>
+      <h2>{site.coo.title}</h2>
+      <p class="lede">{site.coo.lead}</p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="/services/coo/">サービスの詳細を見る</a>
       </div>
     </div>
   </section>

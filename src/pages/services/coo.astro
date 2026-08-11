@@ -1,0 +1,87 @@
+---
+import Base from '../../layouts/Base.astro';
+import { site } from '../../data/site.mjs';
+import Consultation from '../../components/Consultation.astro';
+
+const c = site.coo;
+---
+
+<Base
+  title={c.title}
+  description="合同会社To doのCOO代行。キーエンス、カールツァイス等で統括責任者を務めた代表が、経営の右腕として実行を担います。経営会議の運営、KPI設計、営業組織の立て直し、新規事業の推進まで。週1日から、オンライン中心で全国対応。"
+>
+  <section class="page-head">
+    <div class="wrap">
+      <span class="eyebrow eyebrow--on-dark">COO as a service</span>
+      <h1>{c.title}</h1>
+      <p>{c.lead}</p>
+    </div>
+  </section>
+
+  <!-- なぜCOO代行なのか -->
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">Why</span>
+      <h2>{c.strengthTitle}</h2>
+      <p class="lede">{c.strengthBody}</p>
+    </div>
+  </section>
+
+  <!-- 担う役割 -->
+  <section class="section section--tint">
+    <div class="wrap">
+      <span class="eyebrow">Scope</span>
+      <h2>担う役割</h2>
+      <p class="lede">
+        すべてを一度に引き受けるものではありません。
+        いま止まっているところから順に手を入れます。
+      </p>
+
+      <div class="grid grid--3" style="margin-top:3em">
+        {c.scope.map((item) => (
+          <article class="card">
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 関わり方 -->
+  <section class="section section--dark">
+    <div class="wrap">
+      <span class="eyebrow eyebrow--on-dark">Engagement</span>
+      <h2>関わり方</h2>
+
+      <dl class="facts">
+        {c.engagement.map((f) => (
+          <div>
+            <dt>{f.label}</dt>
+            <dd>{f.value}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <p class="consult-note">{c.engagementNote}</p>
+    </div>
+  </section>
+
+  <!-- こんな方に・費用 -->
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">For</span>
+      <h2>こんな状況の方へ</h2>
+      <ul class="plainlist" style="margin-top:1.6em">
+        {c.fitFor.map((f) => <li>{f}</li>)}
+      </ul>
+
+      <div class="prose" style="margin-top:3.4em">
+        <h2>費用について</h2>
+        <p>{c.priceNote}</p>
+      </div>
+    </div>
+  </section>
+
+  <Consultation variant="dark" />
+</Base>

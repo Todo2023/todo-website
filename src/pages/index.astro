@@ -81,11 +81,16 @@ const rep = site.representative;
 
   <section class="section section--tint">
     <div class="wrap">
-      <span class="eyebrow">SEO / Owned media</span>
-      <h2>{site.seo.title}</h2>
-      <p class="lede">{site.seo.lead}</p>
-      <div class="btn-row">
-        <a class="btn btn--primary" href="/services/seo/">サービスの詳細を見る</a>
+      <span class="eyebrow">Services</span>
+      <h2>3つのサービス</h2>
+      <div class="grid grid--3" style="margin-top:3em">
+        {site.serviceList.map((sv) => (
+          <article class="card">
+            <h3>{sv.title}</h3>
+            <p>{sv.body}</p>
+            <p style="margin-top:1.2em"><a href={sv.href}>{sv.linkLabel} →</a></p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
