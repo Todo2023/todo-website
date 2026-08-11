@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { site } from '../data/site.mjs';
+import Consultation from '../components/Consultation.astro';
 
 const { email, holidays, replyWithin, mailChecklist, formUrl } = site.contact;
 
@@ -14,23 +15,32 @@ const embedUrl = canEmbed
 ---
 
 <Base
-  title="お問い合わせ"
-  description="合同会社To doへのお問い合わせ。ご連絡はメールで承っています。ご相談・お見積りは無料、2営業日以内にご返信します。オンラインでの打ち合わせに対応しています。"
+  title="無料相談・お問い合わせ"
+  description="合同会社To doは30分の無料相談を受け付けています。オンライン（Google Meet）で実施し、費用はかかりません。お申し込みはフォームまたはメールから。2営業日以内にご返信します。"
 >
   <section class="page-head">
     <div class="wrap">
       <span class="eyebrow eyebrow--on-dark">Contact</span>
-      <h1>お問い合わせ</h1>
+      <h1>無料相談・お問い合わせ</h1>
       <p>
-        ご連絡はメールで承っています。ご相談とお見積りは無料です。
-        「これは頼めるだろうか」という段階でも構いません。
+        30分の無料相談を受け付けています。
+        「これは頼めるだろうか」という段階でも構いません。2営業日以内にご返信します。
       </p>
     </div>
   </section>
 
+  <Consultation showCta={false} />
+
   <section class="section">
     <div class="wrap">
-      <div class="mailbox">
+      <span class="eyebrow">Apply</span>
+      <h2>お申し込み・お問い合わせ</h2>
+      <p class="lede">
+        下記のフォーム、またはメールでご連絡ください。
+        無料相談のお申し込み、そのほかのご相談、どちらもこちらで承ります。
+      </p>
+
+      <div class="mailbox" style="margin-top:2.6em">
         <p class="mailbox__label">メールでお問い合わせください</p>
         <p class="mailbox__addr">
           <a href={`mailto:${email}`}>{email}</a>
@@ -65,7 +75,7 @@ const embedUrl = canEmbed
 
       {embedUrl && (
         <div class="form-embed">
-          <h2>フォームから問い合わせる</h2>
+          <h2>フォームから申し込む</h2>
           <iframe
             src={embedUrl}
             title="お問い合わせフォーム"
@@ -82,7 +92,7 @@ const embedUrl = canEmbed
       {formUrl && !embedUrl && (
         <div class="btn-row" style="margin-top:32px">
           <a class="btn btn--primary" href={formUrl} target="_blank" rel="noopener">
-            フォームから問い合わせる
+            フォームから申し込む
           </a>
         </div>
       )}

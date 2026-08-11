@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import { site } from '../data/site.mjs';
 import { getCollection } from 'astro:content';
+import Consultation from '../components/Consultation.astro';
 
 const headlineLines = site.hero.headline.split('｜');
 
@@ -100,17 +101,5 @@ const rep = site.representative;
     </section>
   )}
 
-  <section class="section">
-    <div class="wrap">
-      <span class="eyebrow">Contact</span>
-      <h2>まず、状況をお聞かせください。</h2>
-      <p class="lede">
-        「何が問題なのかが、まだ言葉になっていない」という段階で構いません。
-        お話をうかがったうえで、お手伝いできることをお伝えします。ご相談は無料です。
-      </p>
-      <div class="btn-row">
-        <a class="btn btn--primary" href="/contact/">お問い合わせ</a>
-      </div>
-    </div>
-  </section>
+  <Consultation />
 </Base>

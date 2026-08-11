@@ -505,3 +505,74 @@ p:last-child { margin-bottom: 0; }
 .mailbox__addr a { text-decoration: none; border-bottom: 2px solid var(--line); }
 .mailbox__addr a:hover { border-bottom-color: var(--accent); }
 .mailbox__note { margin-top: 1.6em; font-size: 0.9rem; color: var(--ink-muted); }
+
+/* 無料相談：費用・時間・形式の3点 -------------------------------------- */
+.facts {
+  display: grid;
+  gap: 1px;
+  margin: 2.6em 0 0;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+@media (min-width: 640px) { .facts { grid-template-columns: repeat(3, 1fr); } }
+.facts > div {
+  background: var(--surface);
+  padding: 22px 24px;
+}
+.section--tint .facts > div { background: var(--surface-2); }
+.section--dark .facts { background: var(--line-dark); border-color: var(--line-dark); }
+.section--dark .facts > div { background: var(--ground); }
+.facts dt {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  margin-bottom: 0.5em;
+}
+.section--dark .facts dt { color: var(--accent-soft); }
+.facts dd {
+  margin: 0;
+  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+/* 無料相談：当日の流れ -------------------------------------------------- */
+.flow {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: flow;
+}
+.flow li {
+  counter-increment: flow;
+  position: relative;
+  padding-left: 2.6em;
+  margin-bottom: 0.9em;
+  color: var(--ink-muted);
+}
+.section--dark .flow li { color: var(--on-dark-muted); }
+.flow li::before {
+  content: counter(flow);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1.8em;
+  height: 1.8em;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.section--dark .flow li::before { border-color: var(--accent-soft); color: var(--accent-soft); }
+
+.consult-note {
+  margin-top: 2.4em;
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+  max-width: 44em;
+}
+.section--dark .consult-note { color: var(--on-dark-muted); }

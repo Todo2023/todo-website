@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { site } from '../data/site.mjs';
+import Consultation from '../components/Consultation.astro';
 
 const ops = site.operations;
 ---
@@ -86,9 +87,8 @@ const ops = site.operations;
         </li>
       </ol>
 
-      <div class="btn-row">
-        <a class="btn btn--on-dark" href="/contact/">お問い合わせ</a>
-      </div>
     </div>
   </section>
+
+  <Consultation />
 </Base>

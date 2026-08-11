@@ -1,0 +1,46 @@
+---
+/*
+ * 「30分の無料相談」の案内ブロック。
+ * トップページ・サービスページ・お問い合わせページで使い回しています。
+ * 文章は src/data/site.mjs の consultation で変えられます。
+ *
+ * variant="dark" を渡すと濃紺の背景になります。
+ */
+import { site } from '../data/site.mjs';
+
+const { variant = 'light', showCta = true } = Astro.props;
+const c = site.consultation;
+const isDark = variant === 'dark';
+---
+
+<section class={isDark ? 'section section--dark' : 'section section--tint'}>
+  <div class="wrap">
+    <span class={isDark ? 'eyebrow eyebrow--on-dark' : 'eyebrow'}>{c.label}</span>
+    <h2>{c.title}</h2>
+    <p class="lede">{c.lead}</p>
+
+    <dl class="facts">
+      {c.facts.map((f) => (
+        <div>
+          <dt>{f.label}</dt>
+          <dd>{f.value}</dd>
+        </div>
+      ))}
+    </dl>
+
+    <p class="subhead">当日の流れ</p>
+    <ol class="flow">
+      {c.flow.map((step) => <li>{step}</li>)}
+    </ol>
+
+    <p class="consult-note">{c.note}</p>
+
+    {showCta && (
+      <div class="btn-row">
+        <a class={isDark ? 'btn btn--on-dark' : 'btn btn--primary'} href="/contact/">
+          {c.ctaLabel}
+        </a>
+      </div>
+    )}
+  </div>
+</section>
