@@ -16,15 +16,15 @@ const embedUrl = canEmbed
 
 <Base
   title="無料相談・お問い合わせ"
-  description="合同会社To doは30分の無料相談を受け付けています。オンライン（Google Meet）で実施し、費用はかかりません。お申し込みはフォームまたはメールから。2営業日以内にご返信します。"
+  description="合同会社To doは30分の無料相談を受け付けています。オンライン（Google Meet）で実施し、費用はかかりません。業務提携・協業のご相談も承っています。2営業日以内にご返信します。"
 >
   <section class="page-head">
     <div class="wrap">
       <span class="eyebrow eyebrow--on-dark">Contact</span>
       <h1>無料相談・お問い合わせ</h1>
       <p>
-        30分の無料相談を受け付けています。
-        「これは頼めるだろうか」という段階でも構いません。2営業日以内にご返信します。
+        30分の無料相談を受け付けています。「これは頼めるだろうか」という段階でも構いません。
+        業務提携・協業のご相談も、同じ窓口で承ります。2営業日以内にご返信します。
       </p>
     </div>
   </section>
@@ -106,6 +106,34 @@ const embedUrl = canEmbed
         <p>
           対面でのお打ち合わせをご希望の場合は、日程と場所をご相談ください。
         </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint" id="partnership">
+    <div class="wrap">
+      <span class="eyebrow">{site.partnership.label}</span>
+      <h2>{site.partnership.title}</h2>
+      <p class="lede">{site.partnership.lead}</p>
+
+      <div class="grid grid--3" style="margin-top:3em">
+        {site.partnership.seeking.map((item) => (
+          <article class="card">
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
+
+      <p class="consult-note">{site.partnership.note}</p>
+
+      <div class="btn-row">
+        <a
+          class="btn btn--primary"
+          href={`mailto:${email}?subject=${encodeURIComponent('業務提携・協業のご相談（合同会社To do）')}`}
+        >
+          提携について問い合わせる
+        </a>
       </div>
     </div>
   </section>
