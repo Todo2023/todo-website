@@ -1,12 +1,30 @@
 ---
 import Base from '../layouts/Base.astro';
 import { site } from '../data/site.mjs';
+import Consultation from '../components/Consultation.astro';
 
 const rep = site.representative;
 const partners = site.partners;
+
+// 代表個人の構造化データ。氏名で検索されたときに会社と結びつけるためのもの。
+const personLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: rep.name.replace(/\s/g, ''),
+  alternateName: rep.nameEn,
+  jobTitle: rep.role,
+  description: rep.lead,
+  worksFor: { '@type': 'Organization', name: site.name, url: site.url },
+  alumniOf: rep.career.slice(0, -1).map((job) => ({
+    '@type': 'Organization',
+    name: job.company,
+  })),
+  knowsAbout: site.expertise.areas.map((a) => a.title),
+};
 ---
 
 <Base
+  schemas={[personLd]}
   title="代表"
   description={`合同会社To do ${rep.role} ${rep.name}の経歴。キーエンス、パナソニック、工機ホールディングス、カールツァイスで営業・マーケティング・新規事業を担当。案件に応じて専門人材と連携し、関連業務の請負にも対応します。`}
 >
@@ -109,18 +127,17 @@ const partners = site.partners;
     </div>
   </section>
 
-  <section class="section section--dark">
+  <section class="section">
     <div class="wrap">
-      <span class="eyebrow eyebrow--on-dark">Contact</span>
+      <span class="eyebrow">Contact</span>
       <h2>関連業務も、まとめてお引き受けします。</h2>
       <p class="lede">
         資料作成、記事執筆、リサーチ、営業支援、経理まわりの事務、AIの活用。
         課題の周辺で発生する実務まで、まとめて対応できます。
         ご相談内容が複数にまたがっていても構いません。
       </p>
-      <div class="btn-row">
-        <a class="btn btn--on-dark" href="/contact/">お問い合わせ</a>
-      </div>
     </div>
   </section>
+
+  <Consultation variant="dark" />
 </Base>

@@ -1,0 +1,34 @@
+---
+/*
+ * 画面の下に出しつづける相談ボタン（スマートフォンのみ表示）。
+ * ページを最後まで読まなくても申し込めるようにするためのものです。
+ * お問い合わせページでは出しません（すでに申し込み欄があるため）。
+ */
+import { site } from '../data/site.mjs';
+
+const here = Astro.url.pathname;
+const hide = here === '/contact/';
+const bar = site.ctaBar;
+---
+
+{!hide && (
+  <div class="cta-bar" data-cta-bar>
+    <div class="cta-bar__inner">
+      <span class="cta-bar__text">{bar.text}</span>
+      <a class="cta-bar__btn" href="/contact/">{bar.label} →</a>
+    </div>
+  </div>
+)}
+
+<script is:inline>
+  // 読み始めた直後は出さず、少しスクロールしてから出す。
+  (function () {
+    var bar = document.querySelector('[data-cta-bar]');
+    if (!bar) return;
+    function update() {
+      bar.classList.toggle('is-shown', window.scrollY > 400);
+    }
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+  })();
+</script>

@@ -7,9 +7,39 @@
 import { site } from '../data/site.mjs';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import CtaBar from '../components/CtaBar.astro';
 import '../styles/global.css';
 
-const { title, description, path = Astro.url.pathname } = Astro.props;
+// schemas には、そのページ固有の構造化データを配列で渡せます（任意）。
+const { title, description, path = Astro.url.pathname, schemas = [] } = Astro.props;
+
+// パンくず（Googleの検索結果に「ホーム > サービス > COO代行」と出るための情報）。
+const CRUMB_LABEL = {
+  services: 'サービス',
+  news: 'お知らせ',
+  team: '代表',
+  company: '会社概要',
+  contact: '無料相談・お問い合わせ',
+};
+const segments = path.split('/').filter(Boolean);
+const breadcrumbLd = segments.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'ホーム', item: new URL('/', site.url).href },
+        ...segments.map((seg, i) => ({
+          '@type': 'ListItem',
+          position: i + 2,
+          name:
+            i === segments.length - 1
+              ? (title ?? CRUMB_LABEL[seg] ?? seg)
+              : (CRUMB_LABEL[seg] ?? seg),
+          item: new URL(`/${segments.slice(0, i + 1).join('/')}/`, site.url).href,
+        })),
+      ],
+    }
+  : null;
 
 // ページのタイトル。トップページだけは「会社名｜説明」の形にする。
 const pageTitle = title ? `${title}｜${site.name}` : `${site.name}｜${site.tagline}`;
@@ -32,6 +62,23 @@ const jsonLd = {
   url: site.url,
   description: site.description,
   email: site.contact.email,
+  foundingDate: '2023-10',
+  founder: {
+    '@type': 'Person',
+    name: site.representative.name.replace(/\s/g, ''),
+    jobTitle: site.representative.role,
+  },
+  // 得意領域。何の会社かをGoogleに具体的に伝える。
+  knowsAbout: site.expertise.areas.map((a) => a.title),
+  // 提供サービスの一覧。
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'サービス',
+    itemListElement: site.serviceList.map((sv) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name: sv.title, description: sv.body },
+    })),
+  },
   // 所在地は公開しない方針。対応範囲だけを日本全国として伝える。
   areaServed: { '@type': 'Country', name: '日本' },
   // SNSのプロフィールを「同じ会社のもの」としてGoogleに伝える。
@@ -80,6 +127,12 @@ const webSiteLd = {
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
     <script type="application/ld+json" set:html={JSON.stringify(webSiteLd)} is:inline />
+    {breadcrumbLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} is:inline />
+    )}
+    {schemas.map((schema) => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} is:inline />
+    ))}
 
     {/* 管理画面のログイン用。招待メールのリンクを踏むと /admin/ に飛ばします。 */}
     {site.cms && (
@@ -105,5 +158,6 @@ const webSiteLd = {
       <slot />
     </main>
     <Footer />
+    <CtaBar />
   </body>
 </html>

@@ -2,11 +2,23 @@
 import Base from '../../layouts/Base.astro';
 import { site } from '../../data/site.mjs';
 import Consultation from '../../components/Consultation.astro';
+import { mailtoHref } from '../../lib/mailto.mjs';
 
 const s = site.seminar;
+
+const serviceLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: s.title,
+  description: s.lead,
+  serviceType: s.title,
+  provider: { '@type': 'Organization', name: site.name, url: site.url },
+  areaServed: { '@type': 'Country', name: '日本' },
+};
 ---
 
 <Base
+  schemas={[serviceLd]}
   title={s.title}
   description="合同会社To doのセミナー講師・社内研修。キーエンス、パナソニック、カールツァイス、Amazon、オムロンで営業・マーケティング・新規事業を担ってきた代表 辰巳貴恒が登壇します。営業組織づくり、BtoBマーケティング、新規事業、海外展開、CX経営。60分から、オンライン・対面ともに全国対応。"
 >
@@ -89,6 +101,14 @@ const s = site.seminar;
       <div class="prose" style="margin-top:3.4em">
         <h2>費用について</h2>
         <p>{s.priceNote}</p>
+      </div>
+
+      <div class="btn-row" style="margin-top:2em">
+        <a class="btn btn--primary" href="/contact/">30分の無料相談を申し込む</a>
+        <a class="btn btn--ghost" href={mailtoHref('セミナー・研修のご依頼')}>メールで問い合わせる</a>
+      </div>
+
+      <div class="prose" style="margin-top:2.6em">
         <p>
           登壇者の経歴は<a href="/team/">代表プロフィール</a>をご覧ください。
         </p>

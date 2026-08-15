@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { getCollection, render } from 'astro:content';
+import Consultation from '../../components/Consultation.astro';
 
 // src/content/news/ の .md ファイル1つにつき1ページを作る。
 export async function getStaticPaths() {
@@ -30,4 +31,5 @@ const fmt = `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`;
       <p style="margin-top:48px"><a href="/news/">← お知らせ一覧へ</a></p>
     </div>
   </section>
+  <Consultation variant="dark" />
 </Base>

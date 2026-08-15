@@ -4,6 +4,9 @@ import Logo from './Logo.astro';
 
 // 現在開いているページのメニュー項目に印をつけるための判定。
 const here = Astro.url.pathname;
+
+// お問い合わせは、リンクではなくボタンとして右端に出すため、一覧からは外す。
+const navItems = site.nav.filter((item) => item.href !== '/contact/');
 ---
 
 <header class="site-header">
@@ -17,7 +20,7 @@ const here = Astro.url.pathname;
     </a>
     <nav class="site-nav" aria-label="メインメニュー">
       <ul>
-        {site.nav.map((item) => (
+        {navItems.map((item) => (
           <li>
             <a href={item.href} aria-current={here === item.href ? 'page' : undefined}>
               {item.label}
@@ -26,5 +29,12 @@ const here = Astro.url.pathname;
         ))}
       </ul>
     </nav>
+    <a
+      class="site-header__cta"
+      href="/contact/"
+      aria-current={here === '/contact/' ? 'page' : undefined}
+    >
+      無料相談
+    </a>
   </div>
 </header>

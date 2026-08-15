@@ -2,11 +2,23 @@
 import Base from '../../layouts/Base.astro';
 import { site } from '../../data/site.mjs';
 import Consultation from '../../components/Consultation.astro';
+import { mailtoHref } from '../../lib/mailto.mjs';
 
 const s = site.seo;
+
+const serviceLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: s.title,
+  description: s.lead,
+  serviceType: s.title,
+  provider: { '@type': 'Organization', name: site.name, url: site.url },
+  areaServed: { '@type': 'Country', name: '日本' },
+};
 ---
 
 <Base
+  schemas={[serviceLd]}
   title={s.title}
   description="合同会社To doのSEOオウンドメディア運用支援。キーエンス出身代表の事業視点と、マーケティング専門スタッフの執筆体制で、読まれて問い合わせにつながる記事を制作します。キーワード設計から執筆、入稿、改善まで。"
 >
@@ -87,6 +99,14 @@ const s = site.seo;
       <div class="prose" style="margin-top:3.4em">
         <h2>費用について</h2>
         <p>{s.priceNote}</p>
+      </div>
+
+      <div class="btn-row" style="margin-top:2em">
+        <a class="btn btn--primary" href="/contact/">30分の無料相談を申し込む</a>
+        <a class="btn btn--ghost" href={mailtoHref('SEOオウンドメディア運用支援のご相談')}>メールで問い合わせる</a>
+      </div>
+
+      <div class="prose" style="margin-top:2.6em">
       </div>
     </div>
   </section>

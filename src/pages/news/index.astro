@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { getCollection } from 'astro:content';
+import Consultation from '../../components/Consultation.astro';
 
 const posts = (await getCollection('news', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -39,4 +40,5 @@ const fmt = (d) =>
       )}
     </div>
   </section>
+  <Consultation variant="dark" />
 </Base>

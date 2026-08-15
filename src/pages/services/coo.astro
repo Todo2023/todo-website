@@ -2,11 +2,23 @@
 import Base from '../../layouts/Base.astro';
 import { site } from '../../data/site.mjs';
 import Consultation from '../../components/Consultation.astro';
+import { mailtoHref } from '../../lib/mailto.mjs';
 
 const c = site.coo;
+
+const serviceLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: c.title,
+  description: c.lead,
+  serviceType: c.title,
+  provider: { '@type': 'Organization', name: site.name, url: site.url },
+  areaServed: { '@type': 'Country', name: '日本' },
+};
 ---
 
 <Base
+  schemas={[serviceLd]}
   title={c.title}
   description="合同会社To doのCOO代行。キーエンス、カールツァイス等で統括責任者を務めた代表が、経営の右腕として実行を担います。経営会議の運営、KPI設計、営業組織の立て直し、新規事業の推進まで。週1日から、オンライン中心で全国対応。"
 >
@@ -79,6 +91,14 @@ const c = site.coo;
       <div class="prose" style="margin-top:3.4em">
         <h2>費用について</h2>
         <p>{c.priceNote}</p>
+      </div>
+
+      <div class="btn-row" style="margin-top:2em">
+        <a class="btn btn--primary" href="/contact/">30分の無料相談を申し込む</a>
+        <a class="btn btn--ghost" href={mailtoHref('COO代行のご相談')}>メールで問い合わせる</a>
+      </div>
+
+      <div class="prose" style="margin-top:2.6em">
       </div>
     </div>
   </section>
