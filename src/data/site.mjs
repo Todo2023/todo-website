@@ -800,7 +800,8 @@ export const site = {
     //   フォームを使わない場合は null のままでOKです。
     //
     //   例) formUrl: 'https://docs.google.com/forms/d/e/1FAIpQL.../viewform',
-    formUrl: null,
+    formUrl:
+      'https://docs.google.com/forms/d/e/1FAIpQLSfsEPIgM_pcmSBWl3q1ogK_BGElOjiGldqc38XzXbzKcusB9A/viewform',
 
     // 「メールを作成する」ボタンを押したとき、本文にあらかじめ入る下書き。
     // 白紙のメールを渡すより、書く手間が減って問い合わせが増えます。
