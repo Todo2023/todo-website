@@ -1,0 +1,89 @@
+---
+import Base from '../../layouts/Base.astro';
+import { site } from '../../data/site.mjs';
+import Consultation from '../../components/Consultation.astro';
+
+const s = site.seminar;
+---
+
+<Base
+  title={s.title}
+  description="合同会社To doのセミナー講師・社内研修。キーエンス、パナソニック、カールツァイス、Amazon、オムロンで営業・マーケティング・新規事業を担ってきた代表 辰巳貴恒が登壇します。営業組織づくり、BtoBマーケティング、新規事業、海外展開、CX経営。60分から、オンライン・対面ともに全国対応。"
+>
+  <section class="page-head">
+    <div class="wrap">
+      <span class="eyebrow eyebrow--on-dark">Seminar / Training</span>
+      <h1>{s.title}</h1>
+      <p>{s.lead}</p>
+    </div>
+  </section>
+
+  <!-- なぜ当社の登壇なのか -->
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">Why</span>
+      <h2>{s.strengthTitle}</h2>
+      <p class="lede">{s.strengthBody}</p>
+    </div>
+  </section>
+
+  <!-- 登壇テーマ -->
+  <section class="section section--tint">
+    <div class="wrap">
+      <span class="eyebrow">Themes</span>
+      <h2>登壇テーマ</h2>
+      <p class="lede">
+        いずれも、代表が事業側で実際に担ってきた範囲のテーマです。
+      </p>
+
+      <div class="grid grid--3" style="margin-top:3em">
+        {s.themes.map((t) => (
+          <article class="card">
+            <h3>{t.title}</h3>
+            <p>{t.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 承っている形式 -->
+  <section class="section section--dark">
+    <div class="wrap">
+      <span class="eyebrow eyebrow--on-dark">Format</span>
+      <h2>承っている形式</h2>
+
+      <dl class="facts">
+        {s.formats.map((f) => (
+          <div>
+            <dt>{f.label}</dt>
+            <dd>{f.value}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <p class="consult-note">{s.formatsNote}</p>
+    </div>
+  </section>
+
+  <!-- こんな方に・費用 -->
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">For</span>
+      <h2>こんなご依頼に対応します</h2>
+      <ul class="plainlist" style="margin-top:1.6em">
+        {s.fitFor.map((f) => <li>{f}</li>)}
+      </ul>
+
+      <div class="prose" style="margin-top:3.4em">
+        <h2>費用について</h2>
+        <p>{s.priceNote}</p>
+        <p>
+          登壇者の経歴は<a href="/team/">代表プロフィール</a>をご覧ください。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Consultation variant="dark" />
+</Base>
