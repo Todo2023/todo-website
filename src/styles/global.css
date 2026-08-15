@@ -617,3 +617,12 @@ p:last-child { margin-bottom: 0; }
 .section--dark .areas__from { color: var(--accent-soft); }
 .areas__body { margin: 0; color: var(--ink-muted); }
 .section--dark .areas__body { color: var(--on-dark-muted); }
+
+/* 職歴の在籍期間 -------------------------------------------------------- */
+.record__period {
+  margin: 4px 0 0;
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+}
+.section--dark .record__period { color: var(--on-dark-muted); }

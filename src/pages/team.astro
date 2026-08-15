@@ -31,11 +31,19 @@ const partners = site.partners;
       </div>
       <p class="lede">{rep.lead}</p>
 
+      <p class="subhead">自己紹介</p>
+      <div class="prose">
+        {rep.statement.map((para) => <p>{para}</p>)}
+      </div>
+
       <p class="subhead">経歴</p>
       <ul class="record">
         {rep.career.map((job) => (
           <li>
-            <p class="record__org">{job.company}</p>
+            <div>
+              <p class="record__org">{job.company}</p>
+              {job.period && <p class="record__period">{job.period}</p>}
+            </div>
             {job.roles.length > 0 && (
               <ul class="record__roles">
                 {job.roles.map((r) => <li>{r}</li>)}
