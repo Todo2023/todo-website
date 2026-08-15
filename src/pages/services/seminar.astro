@@ -32,9 +32,7 @@ const s = site.seminar;
     <div class="wrap">
       <span class="eyebrow">Themes</span>
       <h2>登壇テーマ</h2>
-      <p class="lede">
-        いずれも、代表が事業側で実際に担ってきた範囲のテーマです。
-      </p>
+      <p class="lede">{s.themesNote}</p>
 
       <div class="grid grid--3" style="margin-top:3em">
         {s.themes.map((t) => (
@@ -65,6 +63,19 @@ const s = site.seminar;
       <p class="consult-note">{s.formatsNote}</p>
     </div>
   </section>
+
+  <!-- 登壇実績（site.mjs の record に書いたときだけ出ます） -->
+  {s.record.length > 0 && (
+    <section class="section section--tint">
+      <div class="wrap">
+        <span class="eyebrow">Record</span>
+        <h2>登壇実績</h2>
+        <ul class="plainlist" style="margin-top:1.6em">
+          {s.record.map((r) => <li>{r}</li>)}
+        </ul>
+      </div>
+    </section>
+  )}
 
   <!-- こんな方に・費用 -->
   <section class="section">
