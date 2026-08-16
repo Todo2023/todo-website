@@ -81,8 +81,8 @@ const jsonLd = {
   },
   // 所在地は公開しない方針。対応範囲だけを日本全国として伝える。
   areaServed: { '@type': 'Country', name: '日本' },
-  // SNSのプロフィールを「同じ会社のもの」としてGoogleに伝える。
-  sameAs: Object.values(site.social).filter(Boolean),
+  // SNSと外部サイトのプロフィールを「同じ会社のもの」としてGoogleに伝える。
+  sameAs: [...Object.values(site.social), ...(site.profiles ?? [])].filter(Boolean),
 };
 
 // サイトそのものの情報。社名での検索時に正式名称を結び付けやすくする。
