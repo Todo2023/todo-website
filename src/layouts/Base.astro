@@ -41,6 +41,10 @@ const breadcrumbLd = segments.length
     }
   : null;
 
+// 控えのサイト（Cloudflare Pages）では、検索エンジンに登録させない。
+// 同じ内容のサイトが2つ検索に出ると、評価が分かれてしまうため。
+const isNoindex = process.env.NOINDEX === '1';
+
 // ページのタイトル。トップページだけは「会社名｜説明」の形にする。
 const pageTitle = title ? `${title}｜${site.name}` : `${site.name}｜${site.tagline}`;
 const pageDescription = description ?? site.description;
@@ -105,8 +109,9 @@ const webSiteLd = {
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
     <link rel="canonical" href={canonical} />
+    {isNoindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    {!isNoindex && <link rel="sitemap" href="/sitemap-index.xml" />}
 
     {site.googleSiteVerification && (
       <meta name="google-site-verification" content={site.googleSiteVerification} />
@@ -135,7 +140,8 @@ const webSiteLd = {
     ))}
 
     {/* 管理画面のログイン用。招待メールのリンクを踏むと /admin/ に飛ばします。 */}
-    {site.cms && (
+    {/* 控えのサイトでは動かない仕組みなので読み込みません。 */}
+    {site.cms && !isNoindex && (
       <>
         <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" is:inline />
         <script is:inline>

@@ -8,6 +8,7 @@ import { site } from './src/data/site.mjs';
 export default defineConfig({
   site: site.url,
   trailingSlash: 'always',
-  integrations: [sitemap()],
+  // 控えのサイト（NOINDEX=1）では sitemap.xml を作りません。
+  integrations: process.env.NOINDEX === '1' ? [] : [sitemap()],
   build: { format: 'directory' },
 });
