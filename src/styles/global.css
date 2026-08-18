@@ -722,3 +722,13 @@ p:last-child { margin-bottom: 0; }
   color: var(--ink-muted);
   line-height: 1.85;
 }
+
+/* 見出しの右に小さく添える補足 ------------------------------------------ */
+.h2-note {
+  display: inline-block;
+  font-size: 0.62em;
+  font-weight: 700;
+  color: var(--ink-muted);
+  letter-spacing: 0.01em;
+}
+.section--dark .h2-note { color: var(--on-dark-muted); }

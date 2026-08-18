@@ -87,6 +87,7 @@ function createConsultationForm() {
     .setChoiceValues([
       '30分の無料相談を希望する',
       '業務提携・協業のご相談',
+      '取材・寄稿のご依頼',
       'その他の問い合わせ（見積り・依頼など）',
     ])
     .setRequired(true);
@@ -132,7 +133,8 @@ function createConsultationForm() {
     .setTitle('ご相談の概要')
     .setHelpText(
       '一言で構いません。現在おかれている状況や、お困りごとをお書きください。\n' +
-      '業務提携のご相談の場合は、御社の事業内容と、想定される協業の形をお書きください。'
+      '業務提携のご相談の場合は、御社の事業内容と、想定される協業の形をお書きください。\n' +
+      '取材・寄稿のご依頼の場合は、媒体名、テーマ、締め切りをお書きください。'
     )
     .setRequired(true);
 
@@ -245,6 +247,7 @@ function onConsultationFormSubmit(e) {
       var v = String(value);
       if (v.indexOf('無料相談') === 0) subjectSuffix = '【無料相談】';
       else if (v.indexOf('業務提携') === 0) subjectSuffix = '【業務提携】';
+      else if (v.indexOf('取材') === 0) subjectSuffix = '【取材・寄稿】';
     }
     body.push('【' + title + '】');
     body.push(String(value === '' ? '（未入力）' : value));
