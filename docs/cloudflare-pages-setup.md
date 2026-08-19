@@ -1,5 +1,9 @@
 # Cloudflare Pages に「控えのサイト」を用意する手順
 
+> **2026年8月19日：設定済みです。**
+> 控えのサイト → https://todo-llc-preview.pages.dev
+> 以下は、作り直すときや引き継ぎのための記録です。
+
 Netlifyのビルド枠を使い切ったときでも、更新した結果を確認できるようにするための控えです。
 **正式なサイトはあくまで https://todo-llc.netlify.app です。**
 
@@ -37,8 +41,18 @@ URLを知っている人は普通に見られます。**Googleにだけ載らな
 
 ## STEP 2：Pages を開く
 
-1. 左メニューから「**Compute (Workers)**」または「**Workers & Pages**」を選ぶ
-2. 「**Create**」→「**Pages**」タブ →「**Connect to Git**」
+1. 左メニュー「**Compute**」→「**Workers & Pages**」を選ぶ
+2. 「**Create**」を押す
+3. 画面の**いちばん下**にある
+   「Looking to deploy Pages? **Get started**」をクリック
+4. 「**Import an existing Git repository**」の「**Get started**」をクリック
+
+> Cloudflareはこの画面をWorkers中心に作り替えたため、Pagesが下に追いやられています。
+> 上に並んでいる「Connect GitHub」は**Workersという別の仕組み**用なので、
+> 押さないでください。設定項目が変わってしまいます。
+>
+> 「Drag and drop your files」も使いません。
+> そちらはGitHubに変更を送っても自動更新されない方式です。
 
 ---
 
@@ -46,6 +60,9 @@ URLを知っている人は普通に見られます。**Googleにだけ載らな
 
 1. 「**Connect GitHub**」を押す
 2. GitHubのログイン画面が出たらログイン
+   ※「Confirm access」という本人確認の画面が出ることがあります。
+     緑の「Verify via email」を押し、届いたコードを入力してください。
+     GitHubが重要な操作の前に行う確認で、正常な流れです。
 3. どのリポジトリを許可するか聞かれたら、
    「**Only select repositories**」→ `Todo2023/todo-website` を選ぶ
    （すべて許可でも構いませんが、1つだけ選ぶほうが安全です）
@@ -89,6 +106,9 @@ URLを知っている人は普通に見られます。**Googleにだけ載らな
 ---
 
 ## STEP 6：公開する
+
+> Root directory (advanced) の Path は**空欄のまま**で正解です。
+> このリポジトリは直下にサイトのデータが入っているためです。
 
 「**Save and Deploy**」を押します。1〜2分で完了します。
 

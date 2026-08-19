@@ -38,11 +38,16 @@ Netlifyの無料枠のビルドクレジットを使い切り、`3e598d6` で公
 - [ ] **Netlifyの次の請求サイクル開始日を確認する**
       https://app.netlify.com/ → チーム設定 → Billing
       その日を過ぎると自動でビルドが再開し、溜まった変更が一度に反映されます
-- [ ] **Cloudflare Pages に控えのサイトを作る**
-      → 手順は [cloudflare-pages-setup.md](cloudflare-pages-setup.md)
-      検索には出ない設定で作るので、順位への影響はありません
-- [ ] 控えのサイトができたら `/robots.txt` を開いて
-      `Disallow: /` になっていることを確認する
+- [x] **Cloudflare Pages に控えのサイトを作る**（2026年8月19日 完了）
+      → https://todo-llc-preview.pages.dev
+      検索には出ない設定（NOINDEX=1）で作ってあります
+- [ ] 控えのサイトで、次の3点を確認する
+      1. `/robots.txt` が `Disallow: /` になっている
+      2. お問い合わせページにGoogleフォームが表示されている
+      3. フッターにXのアイコンが出ている
+
+**これ以降、GitHubに変更を送ると Cloudflare 側は自動で更新されます。**
+Netlify（正式サイト）は枠が戻るまで止まったままです。
 
 ### 今後の運用（反省点）
 
