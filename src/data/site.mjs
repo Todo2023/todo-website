@@ -944,6 +944,7 @@ export const site = {
     { label: '代表', href: '/team/' },
     { label: '会社概要', href: '/company/' },
     { label: 'お知らせ', href: '/news/' },
+    { label: 'コラム', href: '/column/' },
     { label: 'お問い合わせ', href: '/contact/' },
   ],
 };

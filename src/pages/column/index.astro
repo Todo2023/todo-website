@@ -1,0 +1,44 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import Consultation from '../../components/Consultation.astro';
+
+const posts = (await getCollection('column', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const fmt = (d) =>
+  `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+---
+
+<Base title="コラム" description="FA機器・工具・光学機器メーカーの選定・切り替えで実務担当者が直面する論点を整理したコラムです。">
+  <section class="page-head">
+    <div class="wrap">
+      <span class="eyebrow eyebrow--on-dark">Column</span>
+      <h1>コラム</h1>
+      <p>
+        FA機器・工具・光学機器の選定やメーカー切り替えで、現場・購買担当者が
+        直面しやすい論点を、実務経験をもとに整理しています。
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      {posts.length === 0 ? (
+        <p>現在コラムはありません。</p>
+      ) : (
+        <ul class="news-list">
+          {posts.map((post) => (
+            <li>
+              <a href={`/column/${post.id}/`}>
+                <time datetime={post.data.date.toISOString().slice(0, 10)}>{fmt(post.data.date)}</time>
+                <span>{post.data.title}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </section>
+  <Consultation variant="dark" />
+</Base>

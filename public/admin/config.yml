@@ -29,3 +29,20 @@ collections:
       - { name: "summary", label: "一覧に出る短い説明", widget: "text", required: false }
       - { name: "draft", label: "下書き（チェックすると公開されません）", widget: "boolean", default: false, required: false }
       - { name: "body", label: "本文", widget: "markdown" }
+
+  - name: "column"
+    label: "コラム"
+    label_singular: "コラム"
+    folder: "src/content/column"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    summary: "{{date}} — {{title}}"
+    sortable_fields: ["date", "title"]
+    fields:
+      - { name: "title", label: "タイトル", widget: "string" }
+      - { name: "date", label: "公開日", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { name: "summary", label: "一覧に出る短い説明", widget: "text", required: false }
+      - { name: "draft", label: "下書き（チェックすると公開されません）", widget: "boolean", default: false, required: false }
+      - { name: "body", label: "本文", widget: "markdown" }
