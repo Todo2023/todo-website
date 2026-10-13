@@ -21,6 +21,7 @@ const CRUMB_LABEL = {
   team: '代表',
   company: '会社概要',
   contact: '無料相談・お問い合わせ',
+  privacy: 'プライバシーポリシー',
 };
 const segments = path.split('/').filter(Boolean);
 const breadcrumbLd = segments.length
@@ -139,6 +140,20 @@ const webSiteLd = {
     {schemas.map((schema) => (
       <script type="application/ld+json" set:html={JSON.stringify(schema)} is:inline />
     ))}
+
+    {/* Googleアナリティクス。site.mjs の gaId が空のときは何も出しません。 */}
+    {/* 控えのサイト（NOINDEX=1）でも出しません。 */}
+    {site.gaId && !isNoindex && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${site.gaId}`} is:inline />
+        <script is:inline set:html={`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${site.gaId}');
+        `} />
+      </>
+    )}
 
     {/* 管理画面のログイン用。招待メールのリンクを踏むと /admin/ に飛ばします。 */}
     {/* 控えのサイトでは動かない仕組みなので読み込みません。 */}
