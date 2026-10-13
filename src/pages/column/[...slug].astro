@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { site } from '../../data/site.mjs';
 import { getCollection, render } from 'astro:content';
 import Consultation from '../../components/Consultation.astro';
 
@@ -14,9 +15,37 @@ const { Content } = await render(post);
 
 const d = post.data.date;
 const fmt = `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`;
+
+// 記事の構造化データ。検索結果に公開日や著者が出やすくなります。
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.data.title,
+  description: post.data.summary ?? post.data.title,
+  datePublished: d.toISOString().slice(0, 10),
+  dateModified: d.toISOString().slice(0, 10),
+  inLanguage: 'ja',
+  author: {
+    '@type': 'Organization',
+    name: site.name,
+    url: site.url,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: site.name,
+    url: site.url,
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': new URL(`/column/${post.id}/`, site.url).href,
+  },
+  image: new URL('/ogp.png', site.url).href,
+};
 ---
 
-<Base title={post.data.title} description={post.data.summary ?? post.data.title}>
+<Base
+  schemas={[articleLd]}
+  title={post.data.title} description={post.data.summary ?? post.data.title}>
   <section class="page-head">
     <div class="wrap">
       <span class="eyebrow eyebrow--on-dark">Column</span>
