@@ -19,7 +19,7 @@ const news = defineCollection({
 /*
  * 「コラム」の記事フォルダの設定。
  * src/content/column/ の中の .md ファイルが1件のコラムになります。
- * FA機器・工具・光学機器の担当者向けの、検索から読まれるための実務記事です。
+ * 中小企業の経営者向けの、検索から読まれるための実務記事です。
  */
 const column = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/column' }),

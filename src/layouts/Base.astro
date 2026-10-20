@@ -21,6 +21,7 @@ const CRUMB_LABEL = {
   team: '代表',
   company: '会社概要',
   contact: '無料相談・お問い合わせ',
+  privacy: 'プライバシーポリシー',
 };
 const segments = path.split('/').filter(Boolean);
 const breadcrumbLd = segments.length
@@ -113,6 +114,20 @@ const webSiteLd = {
     {isNoindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     {!isNoindex && <link rel="sitemap" href="/sitemap-index.xml" />}
+
+    {/* Googleアナリティクス（GA4）。測定IDは src/data/site.mjs の gaId で設定します。 */}
+    {/* 控えのサイトのアクセスを正式サイトの数字に混ぜないよう、控えでは読み込みません。 */}
+    {site.gaId && !isNoindex && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${site.gaId}`} is:inline />
+        <script is:inline define:vars={{ gaId: site.gaId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          gtag('js', new Date());
+          gtag('config', gaId);
+        </script>
+      </>
+    )}
 
     {site.googleSiteVerification && (
       <meta name="google-site-verification" content={site.googleSiteVerification} />

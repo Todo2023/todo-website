@@ -10,6 +10,11 @@ const news = (await getCollection('news', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 
+// コラムの新着。0件なら枠ごと出さない。
+const columns = (await getCollection('column', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
 const fmt = (d) =>
   `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
 
@@ -97,8 +102,32 @@ const rep = site.representative;
     </div>
   </section>
 
-  {news.length > 0 && (
+  {/* 背景は「サービス（薄い色）→ コラム（白）→ お知らせ（薄い色）→ 無料相談（濃紺）」の順。 */}
+  {/* どちらかが0件で枠が消えても、同じ背景が続かない並びにしています。 */}
+  {columns.length > 0 && (
     <section class="section">
+      <div class="wrap">
+        <span class="eyebrow">Column</span>
+        <h2>コラム</h2>
+        <ul class="news-list">
+          {columns.map((post) => (
+            <li>
+              <a href={`/column/${post.id}/`}>
+                <time datetime={post.data.date.toISOString().slice(0, 10)}>{fmt(post.data.date)}</time>
+                <span>{post.data.title}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div class="btn-row">
+          <a class="btn btn--ghost" href="/column/">コラム一覧</a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {news.length > 0 && (
+    <section class="section section--tint">
       <div class="wrap">
         <span class="eyebrow">News</span>
         <h2>お知らせ</h2>
@@ -119,5 +148,5 @@ const rep = site.representative;
     </section>
   )}
 
-  <Consultation />
+  <Consultation variant="dark" />
 </Base>
