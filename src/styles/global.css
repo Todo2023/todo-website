@@ -431,6 +431,8 @@ p:last-child { margin-bottom: 0; }
 .prose h2:first-child { margin-top: 0; }
 .prose ul, .prose ol { padding-left: 1.3em; }
 .prose li { margin-bottom: 0.45em; }
+/* 長いURLが狭い画面からはみ出さないように折り返す */
+.prose a { overflow-wrap: anywhere; }
 
 /* お問い合わせフォームの埋め込み ------------------------------------- */
 .form-embed { margin-top: 64px; }

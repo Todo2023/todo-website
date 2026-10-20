@@ -4,9 +4,9 @@
   "description": "合同会社To do コーポレートサイト",
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/check-text.mjs && astro build",
+    "build": "node scripts/check-text.mjs && node scripts/check-style.mjs && astro build",
     "preview": "astro preview",
-    "check": "node scripts/check-text.mjs"
+    "check": "node scripts/check-text.mjs && node scripts/check-style.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
