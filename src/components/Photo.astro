@@ -1,0 +1,33 @@
+---
+/*
+ * 写真の枠。
+ *
+ * public/images/ に同じ名前のファイルを置いたときだけ表示されます。
+ * ファイルがない間は、枠ごと出ません（仮の絵や空の枠を本番に出さないため）。
+ *
+ * 写真を追加する手順
+ *   1. public/images/ にファイルを置く（名前は src/data/site.mjs の photos を参照）
+ *   2. GitHub にプッシュする
+ *   → 自動で表示されます。CSSの変更は不要です。
+ *
+ * 容量の目安：幅1600px・300KB程度まで。
+ */
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+
+const { photo, eager = false } = Astro.props;
+
+// ビルド時にファイルの有無を調べる
+const exists = photo?.file ? existsSync(join('public', 'images', photo.file)) : false;
+---
+
+{exists && (
+  <figure class="photo" style={`aspect-ratio:${photo.ratio ?? '16/7'}`}>
+    <img
+      src={`/images/${photo.file}`}
+      alt={photo.alt}
+      loading={eager ? 'eager' : 'lazy'}
+      decoding="async"
+    />
+  </figure>
+)}

@@ -3,14 +3,21 @@ import Base from '../layouts/Base.astro';
 import { site } from '../data/site.mjs';
 import { getCollection } from 'astro:content';
 import Consultation from '../components/Consultation.astro';
+import Photo from '../components/Photo.astro';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 
-const headlineLines = site.hero.headline.split('｜');
+// 「｜」で改行、「★」で囲んだ部分を紫にするための分解。
+// 行ごとに [{ text, accent }] の形にして、下のテンプレートで組み立てます。
+const splitCopy = (text) =>
+  text.split('｜').map((line) =>
+    line.split('★').map((part, i) => ({ text: part, accent: i % 2 === 1 }))
+  );
 
 const news = (await getCollection('news', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 
-// コラムの新着。0件なら枠ごと出さない。
 const columns = (await getCollection('column', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
@@ -19,31 +26,92 @@ const fmt = (d) =>
   `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
 
 const rep = site.representative;
+const photos = site.photos;
+const stepPhotos = [photos.step1, photos.step2, photos.step3];
+
+// 写真がないときは、枠だけでなく余白ごと出さない
+const hasPhoto = (ph) => Boolean(ph?.file) && existsSync(join('public', 'images', ph.file));
+
+// 経歴の「2004年4月 – 2017年9月（13年6か月）」から年だけを取り出す
+const years = (period) => {
+  const ys = [...period.matchAll(/(\d{4})年/g)].map((m) => m[1]);
+  if (ys.length === 0) return '';
+  return period.includes('現在') ? `${ys[0]} –` : `${ys[0]} – ${ys[1] ?? ''}`;
+};
 ---
 
 <Base>
+  {/* 1. ヒーロー（混合色・写真は重ねない） */}
   <section class="hero">
     <div class="wrap">
-      <div class="hero__rule"></div>
-      <h1>{headlineLines.map((line, i) => (i === 0 ? line : [<br />, line]))}</h1>
+      <p class="hero__leadin">{site.hero.leadIn}</p>
+      <h1>
+        {splitCopy(site.hero.headline).map((line, i) => (
+          <>
+            {i > 0 && <br />}
+            {line.map((part) => (part.accent ? <em>{part.text}</em> : part.text))}
+          </>
+        ))}
+      </h1>
       <p class="hero__lead">{site.hero.lead}</p>
       <div class="btn-row">
-        <a class="btn btn--on-dark" href={site.hero.primaryCta.href}>{site.hero.primaryCta.label}</a>
-        <a class="btn btn--on-dark" href={site.hero.secondaryCta.href}>{site.hero.secondaryCta.label}</a>
+        <a class="btn btn--primary" href={site.hero.primaryCta.href}>{site.hero.primaryCta.label}</a>
+        <a class="btn btn--ghost" href={site.hero.secondaryCta.href}>{site.hero.secondaryCta.label}</a>
       </div>
     </div>
   </section>
 
-  <section class="creds">
+  {/* 2. 会議室の写真。public/images/ に置いたときだけ出ます */}
+  {hasPhoto(photos.hero) && (
+    <div class="photo-band">
+      <div class="wrap">
+        <Photo photo={photos.hero} eager={true} />
+      </div>
+    </div>
+  )}
+
+  {/* 3. コンセプト（縦書き・明朝。スマホでは横書き） */}
+  <section class="section concept">
     <div class="wrap">
-      <p class="creds__label">{site.credentials.label}</p>
-      <ul class="creds__list">
-        {site.credentials.companies.map((c) => <li>{c}</li>)}
-      </ul>
-      <p class="creds__note">{site.credentials.note}</p>
+      <div class="concept__text">
+        <span class="eyebrow">{site.concept.label}</span>
+        <h2>{site.concept.title}</h2>
+        {site.concept.body.map((para) => <p>{para}</p>)}
+      </div>
+      <p class="concept__copy">
+        {splitCopy(site.concept.copy).map((line, i) => (
+          <>
+            {i > 0 && <br />}
+            {line.map((part) => (part.accent ? <em>{part.text}</em> : part.text))}
+          </>
+        ))}
+      </p>
     </div>
   </section>
 
+  {/* 4. こんなお悩みはありませんか */}
+  <section class="section worry" id="worry">
+    <div class="wrap">
+      <span class="eyebrow">{site.worries.label}</span>
+      <h2>{site.worries.title}</h2>
+      <ul class="worry-list">
+        {site.worries.items.map((item) => (
+          <li class="worry-item">
+            <span class="worry-item__q">{item.q}</span>
+            <span class="worry-item__arrow" aria-hidden="true">→</span>
+            <span class="worry-item__a">
+              <a href={item.href}>
+                <small>{item.service}</small>
+                {item.a}
+              </a>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  {/* 5. What we do（3つの段階。各段階の上に写真の枠） */}
   <section class="section">
     <div class="wrap">
       <span class="eyebrow">What we do</span>
@@ -53,15 +121,16 @@ const rep = site.representative;
         経営の判断に伴走するアドバイザリーです。{site.servicesIntro}
       </p>
 
-      <ol class="steps">
+      <div class="steps--photo">
         {site.services.map((s, i) => (
-          <li class="step">
-            <div class="step__num">{String(i + 1).padStart(2, '0')}</div>
+          <div class="step">
+            <Photo photo={stepPhotos[i]} />
+            <span class="step__num">STEP {i + 1}</span>
             <h3 class="step__title">{s.title}</h3>
             <p class="step__body">{s.body}</p>
-          </li>
+          </div>
         ))}
-      </ol>
+      </div>
 
       <div class="btn-row">
         <a class="btn btn--ghost" href="/services/">サービスの詳細</a>
@@ -69,26 +138,12 @@ const rep = site.representative;
     </div>
   </section>
 
-  <section class="section section--dark">
-    <div class="wrap">
-      <span class="eyebrow eyebrow--on-dark">Representative</span>
-      <div class="profile-name">
-        <strong>{rep.name}</strong>
-        <span>{rep.role}</span>
-      </div>
-      <p class="lede">{rep.lead}</p>
-      <p class="lede" style="margin-top:1.4em">{site.partners.lead}</p>
-      <div class="btn-row">
-        <a class="btn btn--on-dark" href="/team/">代表の経歴を見る</a>
-      </div>
-    </div>
-  </section>
-
+  {/* 6. 提供しているサービス（カード5枚＋案内カード1枚） */}
   <section class="section section--tint">
     <div class="wrap">
       <span class="eyebrow">Services</span>
       <h2>提供しているサービス</h2>
-      <div class="grid grid--2" style="margin-top:3em">
+      <div class="grid grid--3" style="margin-top:3em">
         {site.serviceList.map((sv) => (
           <article class="card">
             <h3>{sv.title}</h3>
@@ -96,57 +151,81 @@ const rep = site.representative;
             <p style="margin-top:1.2em"><a href={sv.href}>{sv.linkLabel} →</a></p>
           </article>
         ))}
+        <article class="card card--note">
+          <h3>{site.serviceListCard.title}</h3>
+          <p>{site.serviceListCard.body}</p>
+        </article>
       </div>
-
-      <p class="consult-note">{site.serviceListNote}</p>
     </div>
   </section>
 
-  {/* 背景は「サービス（薄い色）→ コラム（白）→ お知らせ（薄い色）→ 無料相談（濃紺）」の順。 */}
-  {/* どちらかが0件で枠が消えても、同じ背景が続かない並びにしています。 */}
-  {columns.length > 0 && (
-    <section class="section">
-      <div class="wrap">
-        <span class="eyebrow">Column</span>
-        <h2>コラム</h2>
-        <ul class="news-list">
-          {columns.map((post) => (
-            <li>
-              <a href={`/column/${post.id}/`}>
-                <time datetime={post.data.date.toISOString().slice(0, 10)}>{fmt(post.data.date)}</time>
-                <span>{post.data.title}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
+  {/* 7. 代表（顔写真は載せず、経歴の一覧を信頼の材料にする） */}
+  <section class="section section--dark">
+    <div class="wrap split split--rep">
+      <div>
+        <span class="eyebrow eyebrow--on-dark">Representative</span>
+        <p class="rep-name">{rep.name}<small>{rep.role}</small></p>
+        <p class="lede">{rep.lead}</p>
         <div class="btn-row">
-          <a class="btn btn--ghost" href="/column/">コラム一覧</a>
+          <a class="btn btn--ghost" href="/team/">代表の経歴を見る</a>
         </div>
+      </div>
+      <ul class="career">
+        {rep.career.map((job) => (
+          <li>
+            <time>{years(job.period)}</time>
+            <div>
+              <b>{job.company}</b>
+              {job.roles.length > 0 && <span>{job.roles.join('／')}</span>}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  {/* 8. コラムとお知らせ（左右に並べる。スマホでは縦） */}
+  {(columns.length > 0 || news.length > 0) && (
+    <section class="section reads">
+      <div class="wrap">
+        {columns.length > 0 && (
+          <div>
+            <span class="eyebrow">Column</span>
+            <h2>コラム</h2>
+            <ul class="news-list">
+              {columns.map((post) => (
+                <li>
+                  <a href={`/column/${post.id}/`}>
+                    <time datetime={post.data.date.toISOString().slice(0, 10)}>{fmt(post.data.date)}</time>
+                    <span>{post.data.title}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <div class="btn-row"><a class="btn btn--ghost" href="/column/">コラム一覧</a></div>
+          </div>
+        )}
+        {news.length > 0 && (
+          <div>
+            <span class="eyebrow">News</span>
+            <h2>お知らせ</h2>
+            <ul class="news-list">
+              {news.map((post) => (
+                <li>
+                  <a href={`/news/${post.id}/`}>
+                    <time datetime={post.data.date.toISOString().slice(0, 10)}>{fmt(post.data.date)}</time>
+                    <span>{post.data.title}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <div class="btn-row"><a class="btn btn--ghost" href="/news/">お知らせ一覧</a></div>
+          </div>
+        )}
       </div>
     </section>
   )}
 
-  {news.length > 0 && (
-    <section class="section section--tint">
-      <div class="wrap">
-        <span class="eyebrow">News</span>
-        <h2>お知らせ</h2>
-        <ul class="news-list">
-          {news.map((post) => (
-            <li>
-              <a href={`/news/${post.id}/`}>
-                <time datetime={post.data.date.toISOString().slice(0, 10)}>{fmt(post.data.date)}</time>
-                <span>{post.data.title}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-        <div class="btn-row">
-          <a class="btn btn--ghost" href="/news/">お知らせ一覧</a>
-        </div>
-      </div>
-    </section>
-  )}
-
+  {/* 9. 無料相談 */}
   <Consultation variant="dark" />
 </Base>
