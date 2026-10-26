@@ -134,7 +134,16 @@ export const site = {
   //      1枚あたり 幅1600px・300KB程度までを目安にしてください。
   // ---------------------------------------------------------------------
   photos: {
-    hero: { file: 'top-meeting-room.jpg', alt: '自然光の入る会議室', ratio: '16/7' },
+    // position は、画面幅で切れるときにどこを残すか。
+    // この写真は上端のペンダントライトを欠けさせないため、下側を基準にします。
+    hero: {
+      file: 'top-meeting-room.jpg',
+      alt: '自然光の入る会議室',
+      ratio: '16/7',
+      width: 1600,
+      height: 700,
+      position: 'center bottom',
+    },
     step1: { file: 'step-notebook.jpg', alt: 'ノートとペン', ratio: '4/3' },
     step2: { file: 'step-books.jpg', alt: '積んだ本とコーヒー', ratio: '4/3' },
     step3: { file: 'step-checklist.jpg', alt: 'チェックリストを書いたノート', ratio: '4/3' },

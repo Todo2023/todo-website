@@ -17,6 +17,10 @@ import { join } from 'node:path';
 
 const { photo, eager = false } = Astro.props;
 
+// 画像の実寸。指定すると、読み込み前後で表示がずれません。
+const w = photo?.width;
+const h = photo?.height;
+
 // ビルド時にファイルの有無を調べる
 const exists = photo?.file ? existsSync(join('public', 'images', photo.file)) : false;
 ---
@@ -26,8 +30,11 @@ const exists = photo?.file ? existsSync(join('public', 'images', photo.file)) : 
     <img
       src={`/images/${photo.file}`}
       alt={photo.alt}
+      width={w}
+      height={h}
       loading={eager ? 'eager' : 'lazy'}
       decoding="async"
+      style={photo.position ? `object-position:${photo.position}` : undefined}
     />
   </figure>
 )}
